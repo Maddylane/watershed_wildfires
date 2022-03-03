@@ -119,6 +119,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 </head>
 
@@ -181,8 +203,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-3"><a href="methods.html#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(Date))<span class="sc">%&gt;%</span></span>
 <span id="cb2-4"><a href="methods.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month)<span class="sc">%&gt;%</span></span>
 <span id="cb2-5"><a href="methods.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">q_mean =</span> <span class="fu">mean</span>(q_cfs, <span class="at">na.rm=</span>T))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups`
-## argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="methods.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(q_month_means)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ## # Groups:   year [2]
@@ -202,8 +224,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-3"><a href="methods.html#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(Date))<span class="sc">%&gt;%</span></span>
 <span id="cb6-4"><a href="methods.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month)<span class="sc">%&gt;%</span></span>
 <span id="cb6-5"><a href="methods.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">q_min =</span> <span class="fu">min</span>(q_cfs))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups`
-## argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="methods.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(q_month_mins)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ## # Groups:   year [2]
@@ -223,8 +245,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-3"><a href="methods.html#cb10-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(Date))<span class="sc">%&gt;%</span></span>
 <span id="cb10-4"><a href="methods.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month)<span class="sc">%&gt;%</span></span>
 <span id="cb10-5"><a href="methods.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">q_median =</span> <span class="fu">median</span>(q_cfs))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups`
-## argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="methods.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(q_month_medians)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ## # Groups:   year [2]
