@@ -82,3 +82,75 @@ knitr::opts_chunk$set(echo = TRUE)
   the streamflow and effect the watershed associated with the effected areas. This study will be looking more 
   into the East Troublesome Fire and the effects it has had on the soil and water quality of the watershed.
   
+
+<!--chapter:end:index.Rmd-->
+
+```{r setup, include=FALSE}
+library(here)
+library(dataRetrieval)
+library(tidyverse)
+library(trend)
+library(lubridate)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Methods
+
+Downloaded data from USGS site along the Colorado River that was affected by the East Troublesome Fire.
+
+## Downloaded data
+
+```{r}
+site_no <- "09034250" 
+
+q <- readNWISdv(siteNumbers = site_no,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+```
+
+### Mean monthly discharge 
+```{r}
+q_month_means <- q%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(q_mean = mean(q_cfs, na.rm=T))
+
+head(q_month_means)
+```
+
+### Min monthly discharge
+```{r}
+q_month_mins <- q%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(q_min = min(q_cfs))
+
+head(q_month_mins)
+```
+
+### Median monthly discharge
+```{r}
+q_month_medians <- q%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(q_median = median(q_cfs))
+
+head(q_month_medians)
+```
+
+<!--chapter:end:1_methods.Rmd-->
+
+
+
+`r if (knitr::is_html_output()) '# References {-}'`
+
+<!--chapter:end:wrapping_up.Rmd-->
+

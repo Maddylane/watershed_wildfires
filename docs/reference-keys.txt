@@ -1,5 +1,0 @@
-intro
-r-markdown
-including-plots
-methods
-subheader
