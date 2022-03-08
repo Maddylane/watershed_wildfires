@@ -5,3 +5,9 @@ mean-monthly-discharge
 min-monthly-discharge
 median-monthly-discharge
 specific-conductance-data
+results
+discharge-data
+plottted-data
+trending-month-mean-min-and-median-data
+specific-conductance-data-1
+plotted-data
