@@ -4,19 +4,23 @@ library(dataRetrieval)
 library(tidyverse)
 library(trend)
 library(lubridate)
+library(sf)
+library(nhdplusTools)
+library(mapview)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
 # Methods
 
-Downloaded data from USGS site along the Colorado River that was affected by the East Troublesome Fire.
+Downloaded data from USGS site number 09034250 that is along the Colorado River that was affected by the East Troublesome Fire.
 
-## Downloaded data
+## Downloaded Discharge Data
 
 ```{r}
 site_no <- "09034250" 
 
+# Discharge data pulled form the site from 10/01/1986 to 1/1/2022
 q <- readNWISdv(siteNumbers = site_no,
                 parameterCd = '00060',
                 startDate = '1986-10-01',
@@ -26,7 +30,8 @@ q <- readNWISdv(siteNumbers = site_no,
   select(-agency_cd, -X_00060_00003_cd)
 ```
 
-### Mean monthly discharge 
+
+### Mean Monthly Discharge 
 ```{r}
 q_month_means <- q%>%
   mutate(month = month(Date),
@@ -37,7 +42,7 @@ q_month_means <- q%>%
 head(q_month_means)
 ```
 
-### Min monthly discharge
+### Min Monthly Discharge 
 ```{r}
 q_month_mins <- q%>%
   mutate(month = month(Date),
@@ -48,7 +53,7 @@ q_month_mins <- q%>%
 head(q_month_mins)
 ```
 
-### Median monthly discharge
+### Median Monthly Discharge 
 ```{r}
 q_month_medians <- q%>%
   mutate(month = month(Date),
@@ -57,4 +62,15 @@ q_month_medians <- q%>%
   summarize(q_median = median(q_cfs))
 
 head(q_month_medians)
+```
+
+## Specific Conductance Data
+
+```{r}
+# Specific conductance data pulled from the site from 10/01/1986 to 1/1/2022
+sc <- readNWISdv(siteNumbers = site_no,
+                parameterCd = '00095',
+                startDate = '1999-10-01', 
+                endDate = '2021-09-30')%>%
+  rename(sc = X_00095_00003)
 ```

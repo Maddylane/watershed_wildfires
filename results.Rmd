@@ -1,0 +1,68 @@
+---
+title: "Results"
+author: "Madison Thompson"
+date: "3/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Results
+
+## Discharge Data
+
+### Plottted Data
+
+```{r}
+# Plot for discharge 
+ggplot(q, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
+```
+
+### Trending Month Mean, Min, and Median Data
+
+```{r}
+ggplot(q_month_means, aes(x = year, y = q_mean))+
+  geom_point()+
+  facet_wrap(~month, scales ='free',)+
+  scale_y_log10()+
+  labs(title = 'Monthly Mean Dishcarge',
+       caption = 'Mean dishcarge for January (1) to December (12) from the year 1986 to 2021',
+       x = 'Q (cfs)',
+       y = 'Years')
+  
+
+ggplot(q_month_mins, aes(x = year, y = q_min))+
+  geom_point()+
+  facet_wrap(~month, scales ='free')+
+  scale_y_log10()+
+    labs(title = 'Monthly Minimum Discharge',
+       caption = 'Minimum dishcarge for January (1) to December (12) from the year 1986 to 2021',
+       x = 'Q (cfs)',
+       y = 'Years')
+
+ggplot(q_month_medians, aes(x = year, y = q_median))+
+  geom_point()+
+  facet_wrap(~month, scales ='free')+
+  scale_y_log10()+
+    labs(title = 'Monthly Median Discharge',
+       caption = 'Median dishcarge for January (1) to December (12) from the year 1986 to 2021',
+       x = 'Q (cfs)',
+       y = 'Years')
+```
+
+
+## Specific Conductance Data
+
+### Plotted Data
+
+```{r}
+# Plot for specific conductance 
+ggplot(sc, aes(x = Date, y = sc)) + 
+  geom_point(size = 1) + 
+  geom_line(size = 0.5) +
+  ylab('SC (uS/cm)')
+```

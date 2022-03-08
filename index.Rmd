@@ -1,5 +1,5 @@
 ---
-title: "Wildfires Affect on East Troublesome Fire"
+title: "Wildfires Affect on East Troublesome Watershed"
 author: "Madison Thompson"
 date: "3/3/2022"
 site: bookdown::bookdown_site
