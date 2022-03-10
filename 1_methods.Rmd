@@ -39,7 +39,6 @@ q_month_means <- q%>%
   group_by(year, month)%>%
   summarize(q_mean = mean(q_cfs, na.rm=T))
 
-head(q_month_means)
 ```
 
 ### Min Monthly Discharge 
@@ -50,7 +49,6 @@ q_month_mins <- q%>%
   group_by(year, month)%>%
   summarize(q_min = min(q_cfs))
 
-head(q_month_mins)
 ```
 
 ### Median Monthly Discharge 
@@ -61,7 +59,6 @@ q_month_medians <- q%>%
   group_by(year, month)%>%
   summarize(q_median = median(q_cfs))
 
-head(q_month_medians)
 ```
 
 ## Specific Conductance Data
@@ -73,4 +70,16 @@ sc <- readNWISdv(siteNumbers = site_no,
                 startDate = '1999-10-01', 
                 endDate = '2021-09-30')%>%
   rename(sc = X_00095_00003)
+```
+
+## Site Discription
+
+USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.
+
+### Deliniated Watershed
+```{r}
+watershed <- st_read('Granby.geojson')%>%
+  dplyr::filter(id=='globalwatershed')
+
+mapview(watershed)
 ```

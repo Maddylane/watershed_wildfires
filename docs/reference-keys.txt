@@ -5,6 +5,8 @@ mean-monthly-discharge
 min-monthly-discharge
 median-monthly-discharge
 specific-conductance-data
+site-discription
+deliniated-watershed
 results
 discharge-data
 plottted-data
