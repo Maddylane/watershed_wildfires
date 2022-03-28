@@ -11,11 +11,7 @@ bibliography: citations.bib
 
 # Introduction 
 
-```{r setup, include=FALSE}
-library(here)
 
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 When wildfires occur, it creates major damages through the entire land and ecosystem of the area. A large part of the ecosystem that is affected is the watershed of the area. When a wildfire burns through the area it creates long-term affects that can alter the streamflow and water quality of that watershed. These wildfires were once a common natural occurrence in most forest ecosystems that did not have a devastating effect on the land. But in more recent years things such as climate change, fuel load accumulation, extensive droughts, and an increase in human presence in forests has caused a devastating effect on the land when these wildfires burn. The concern that comes from these factors has put a heavier strain on the understanding on how the landscape changes and reacts to the wildfire. There is a need to understand the interaction between wildfire, and associated responses in vegetation cover, and hydrologic and geomorphic behavior. [@owens_muted_2013]
 
@@ -27,17 +23,7 @@ In the state of Colorado warmer spring air temperatures and longer wildfire seas
 
 <!--chapter:end:index.Rmd-->
 
-```{r setup2, include=FALSE}
-library(here)
-library(dataRetrieval)
-library(tidyverse)
-library(trend)
-library(lubridate)
-library(sf)
-library(nhdplusTools)
-library(mapview)
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 
 # Methods
@@ -49,7 +35,8 @@ Downloaded data from USGS site number 09040500 that is along the Colorado River 
 
 ## USGS Sites
 
-```{r}
+
+```r
 site_no <- "09034250" 
 site_no2 <- "09040500"
 site_no3 <- "09014050"
@@ -57,8 +44,8 @@ site_no3 <- "09014050"
 
 ## Downloaded Discharge Data
 
-```{r}
 
+```r
 # Discharge data pulled form the site from 10/01/1986 to 1/1/2022
 q <- readNWISdv(siteNumbers = site_no,
                 parameterCd = '00060',
@@ -71,38 +58,54 @@ q <- readNWISdv(siteNumbers = site_no,
 
 
 ### Mean Monthly Discharge 
-```{r}
+
+```r
 q_month_means <- q%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(q_mean = mean(q_cfs, na.rm=T))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
 ```
 
 ### Min Monthly Discharge 
-```{r}
+
+```r
 q_month_mins <- q%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(q_min = min(q_cfs))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
 ```
 
 ### Median Monthly Discharge 
-```{r}
+
+```r
 q_month_medians <- q%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(q_median = median(q_cfs))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
 ```
 
 ## Specific Conductance Data
 
-```{r}
+
+```r
 # Specific conductance data pulled from the sites from 10/01/1986 to 1/1/2022
 
 sc <- readNWISdv(siteNumbers = site_no,
@@ -132,19 +135,34 @@ sc3 <- readNWISdv(siteNumbers = site_no3,
 
 ### Mean Monthly Data
 
-```{r}
+
+```r
 sc_month_means <- sc%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(sc_mean = mean(sc_uscm, na.rm=T))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
+```r
 sc2_month_means <- sc2%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(sc2_mean = mean(sc_uscm, na.rm=T))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
+```r
 sc3_month_means <- sc3%>%
   mutate(month = month(Date),
          year = year(Date))%>%
@@ -152,21 +170,41 @@ sc3_month_means <- sc3%>%
   summarize(sc3_mean = mean(sc_uscm, na.rm=T))
 ```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
 ### Min Monthly Data
 
-```{r}
+
+```r
 sc_month_min <- sc%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(sc_min = min(sc_uscm, na.rm=T))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
+```r
 sc2_month_min <- sc2%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(sc2_min = min(sc_uscm, na.rm=T))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
+```r
 sc3_month_min <- sc3%>%
   mutate(month = month(Date),
          year = year(Date))%>%
@@ -174,26 +212,51 @@ sc3_month_min <- sc3%>%
   summarize(sc3_min = min(sc_uscm, na.rm=T))
 ```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
 ### Median Monthly Data
 
-```{r}
+
+```r
 sc_month_median <- sc%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(sc_median = median(sc_uscm, na.rm=T))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
+```r
 sc2_month_median <- sc2%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(sc2_median = median(sc_uscm, na.rm=T))
+```
 
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
+```
+
+```r
 sc3_month_median <- sc3%>%
   mutate(month = month(Date),
          year = year(Date))%>%
   group_by(year, month)%>%
   summarize(sc3_median = median(sc_uscm, na.rm=T))
+```
+
+```
+## `summarise()` has grouped output by 'year'. You can override using the
+## `.groups` argument.
 ```
 
 ## Site Discription
@@ -203,11 +266,30 @@ USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.
 USGS 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO.
 
 ### Deliniated Watershed
-```{r}
+
+```r
 watershed <- st_read('Granby.geojson')%>%
   dplyr::filter(id=='globalwatershed')
+```
 
+```
+## Reading layer `Granby' from data source 
+##   `C:\Rstudio\WR 440\GIT\watershed_wildfires\Granby.geojson' 
+##   using driver `GeoJSON'
+## Simple feature collection with 2 features and 1 field
+## Geometry type: GEOMETRY
+## Dimension:     XY
+## Bounding box:  xmin: -106.1475 ymin: 39.78574 xmax: -105.6262 ymax: 40.48617
+## Geodetic CRS:  WGS 84
+```
+
+```r
 mapview(watershed)
+```
+
+```{=html}
+<div id="htmlwidget-a2c9d3aeae4657c0cb3b" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a2c9d3aeae4657c0cb3b">{"x":{"options":{"minZoom":1,"maxZoom":52,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"preferCanvas":false,"bounceAtZoomLimits":false,"maxBounds":[[[-90,-370]],[[90,370]]]},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron","CartoDB.Positron","CartoDB.Positron",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["CartoDB.DarkMatter","CartoDB.DarkMatter","CartoDB.DarkMatter",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenStreetMap","OpenStreetMap","OpenStreetMap",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery","Esri.WorldImagery","Esri.WorldImagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenTopoMap","OpenTopoMap","OpenTopoMap",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"createMapPane","args":["polygon",420]},{"method":"addFlatGeoBuf","args":["watershed","watershed",null,true,"globalwatershed",{"radius":6,"stroke":true,"color":"#333333","weight":0.5,"opacity":0.9,"fill":true,"fillColor":"#6666FF","fillOpacity":0.6},{"className":"","pane":"polygon"},"mapview-popup",{"radius":{"to":[3,15],"from":[3,15]},"weight":{"to":[1,10],"from":[1,10]},"opacity":{"to":[0,1],"from":[0,1]},"fillOpacity":{"to":[0,1],"from":[0,1]}}]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":true,"updateWhenIdle":true,"position":"bottomleft"}]},{"method":"addHomeButton","args":[-106.147486181335,39.785738522463,-105.626172677596,40.4861725476823,true,"watershed","Zoom to watershed","<strong> watershed <\/strong>","bottomright"]},{"method":"addLayersControl","args":[["CartoDB.Positron","CartoDB.DarkMatter","OpenStreetMap","Esri.WorldImagery","OpenTopoMap"],"watershed",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]},{"method":"addLegend","args":[{"colors":["#6666FF"],"labels":["globalwatershed"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"factor","title":"","extra":null,"layerId":null,"className":"info legend","group":"watershed"}]}],"fitBounds":[39.785738522463,-106.147486181335,40.4861725476823,-105.626172677596,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n      function(el, x, data) {\n      // get the leaflet map\n      var map = this; //HTMLWidgets.find('#' + el.id);\n      // we need a new div element because we have to handle\n      // the mouseover output separately\n      // debugger;\n      function addElement () {\n      // generate new div Element\n      var newDiv = $(document.createElement('div'));\n      // append at end of leaflet htmlwidget container\n      $(el).append(newDiv);\n      //provide ID and style\n      newDiv.addClass('lnlt');\n      newDiv.css({\n      'position': 'relative',\n      'bottomleft':  '0px',\n      'background-color': 'rgba(255, 255, 255, 0.7)',\n      'box-shadow': '0 0 2px #bbb',\n      'background-clip': 'padding-box',\n      'margin': '0',\n      'padding-left': '5px',\n      'color': '#333',\n      'font': '9px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif',\n      'z-index': '700',\n      });\n      return newDiv;\n      }\n\n\n      // check for already existing lnlt class to not duplicate\n      var lnlt = $(el).find('.lnlt');\n\n      if(!lnlt.length) {\n      lnlt = addElement();\n\n      // grab the special div we generated in the beginning\n      // and put the mousmove output there\n\n      map.on('mousemove', function (e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                           ' lon: ' + (e.latlng.lng).toFixed(5) +\n                           ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                           ' | zoom: ' + map.getZoom() +\n                           ' | x: ' + L.CRS.EPSG3857.project(e.latlng).x.toFixed(0) +\n                           ' | y: ' + L.CRS.EPSG3857.project(e.latlng).y.toFixed(0) +\n                           ' | epsg: 3857 ' +\n                           ' | proj4: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs ');\n      } else {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      }\n      });\n\n      // remove the lnlt div when mouse leaves map\n      map.on('mouseout', function (e) {\n      var strip = document.querySelector('.lnlt');\n      if( strip !==null) strip.remove();\n      });\n\n      };\n\n      //$(el).keypress(67, function(e) {\n      map.on('preclick', function(e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      var txt = document.querySelector('.lnlt').textContent;\n      console.log(txt);\n      //txt.innerText.focus();\n      //txt.select();\n      setClipboardText('\"' + txt + '\"');\n      }\n      });\n\n      }\n      ).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el,x,data){\n           var map = this;\n\n           map.on('keypress', function(e) {\n               console.log(e.originalEvent.code);\n               var key = e.originalEvent.code;\n               if (key === 'KeyE') {\n                   var bb = this.getBounds();\n                   var txt = JSON.stringify(bb);\n                   console.log(txt);\n\n                   setClipboardText('\\'' + txt + '\\'');\n               }\n           })\n        }).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
 ```
 
 <!--chapter:end:1_methods.Rmd-->
@@ -219,16 +301,24 @@ mapview(watershed)
 
 ### Plotted Data
 
-```{r}
+
+```r
 # Plot for discharge 
 ggplot(q, aes(x = Date, y = q_cfs)) + 
   geom_line() + 
   ylab('Q (cfs)')
 ```
 
+```
+## Warning: Removed 38 row(s) containing missing values (geom_path).
+```
+
+<img src="Final-Project_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
 ### Trending Month Mean, Min, and Median Data
 
-```{r}
+
+```r
 ggplot(q_month_means, aes(x = year, y = q_mean))+
   geom_point()+
   facet_wrap(~month, scales ='free',)+
@@ -237,8 +327,15 @@ ggplot(q_month_means, aes(x = year, y = q_mean))+
        caption = 'Mean dishcarge for January (1) to December (12) from the year 1986 to 2021',
        x = 'Q (cfs)',
        y = 'Years')
-  
+```
 
+```
+## Warning: Removed 2 rows containing missing values (geom_point).
+```
+
+<img src="Final-Project_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+
+```r
 ggplot(q_month_mins, aes(x = year, y = q_min))+
   geom_point()+
   facet_wrap(~month, scales ='free')+
@@ -247,7 +344,15 @@ ggplot(q_month_mins, aes(x = year, y = q_min))+
        caption = 'Minimum dishcarge for January (1) to December (12) from the year 1986 to 2021',
        x = 'Q (cfs)',
        y = 'Years')
+```
 
+```
+## Warning: Removed 3 rows containing missing values (geom_point).
+```
+
+<img src="Final-Project_files/figure-html/unnamed-chunk-12-2.png" width="672" />
+
+```r
 ggplot(q_month_medians, aes(x = year, y = q_median))+
   geom_point()+
   facet_wrap(~month, scales ='free')+
@@ -258,12 +363,19 @@ ggplot(q_month_medians, aes(x = year, y = q_median))+
        y = 'Years')
 ```
 
+```
+## Warning: Removed 3 rows containing missing values (geom_point).
+```
+
+<img src="Final-Project_files/figure-html/unnamed-chunk-12-3.png" width="672" />
+
 
 ## Specific Conductance Data
 
 ### Plotted Data
 
-```{r}
+
+```r
 # Plot for specific conductance 
 ggplot(sc, aes(x = Date, y = sc_uscm)) + 
   geom_point(size = 1) + 
@@ -272,7 +384,11 @@ ggplot(sc, aes(x = Date, y = sc_uscm)) +
        caption = 'Specific Conductance data from USGS site 09034250 from 2021-06-24 to 2021-09-30',
        x = 'Date',
        y = 'SC (uS/cm)')
+```
 
+<img src="Final-Project_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+
+```r
 ggplot(sc2, aes(x = Date, y = sc_uscm)) + 
   geom_point(size = 1) + 
   geom_line(size = 0.5) +
@@ -280,7 +396,11 @@ ggplot(sc2, aes(x = Date, y = sc_uscm)) +
        caption = 'Specific Conductance data from USGS site 09040500 from 2021-06-08 to 2021-09-30',
        x = 'Date',
        y = 'SC (uS/cm)')
+```
 
+<img src="Final-Project_files/figure-html/unnamed-chunk-13-2.png" width="672" />
+
+```r
 ggplot(sc3, aes(x = Date, y = sc_uscm)) + 
   geom_point(size = 1) + 
   geom_line(size = 0.5) +
@@ -290,9 +410,12 @@ ggplot(sc3, aes(x = Date, y = sc_uscm)) +
        y = 'SC (uS/cm)')
 ```
 
+<img src="Final-Project_files/figure-html/unnamed-chunk-13-3.png" width="672" />
+
 ### Trending Months
 
-```{r}
+
+```r
 ggplot(sc3_month_means, aes(x = year, y = sc3_mean))+
   geom_point()+
   facet_wrap(~month, scales ='free',)+
@@ -303,11 +426,13 @@ ggplot(sc3_month_means, aes(x = year, y = sc3_mean))+
        y = 'SC (uS/cm)')
 ```
 
+<img src="Final-Project_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+
 <!--chapter:end:results.Rmd-->
 
 
 
-`r if (knitr::is_html_output()) '# References {-}'`
+# References {-}
 
 <!--chapter:end:wrapping_up.Rmd-->
 
