@@ -74,17 +74,37 @@ ggplot(sc3, aes(x = Date, y = sc_uscm)) +
        caption = 'Specific Conductance data from USGS site 09014050 from 2011-09-30 to 2021-09-30',
        x = 'Year',
        y = 'SC (uS/cm)')
+
+
 ```
 
-### Trending Months
+### Trending Months Mean, Min, and Median Data 
 
 ```{r}
 ggplot(sc3_month_means, aes(x = year, y = sc3_mean))+
   geom_point()+
   facet_wrap(~month, scales ='free',)+
   scale_y_log10()+
-  labs(title = 'Monthly Mean Dishcarge USGS site 09014050',
-       caption = 'Mean dishcarge for January (1) to December (12) from 2011-09-30 to 2021-09-30',
+  labs(title = 'Monthly Mean Specific Conductance USGS site 09014050',
+       caption = 'Mean Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
+       x = 'Years',
+       y = 'SC (uS/cm)')
+
+ggplot(sc3_month_min, aes(x = year, y = sc3_min))+
+  geom_point()+
+  facet_wrap(~month, scales ='free',)+
+  scale_y_log10()+
+  labs(title = 'Monthly Min Specific Conductance USGS site 09014050',
+       caption = 'Minimum Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
+       x = 'Years',
+       y = 'SC (uS/cm)')
+
+ggplot(sc3_month_median, aes(x = year, y = sc3_median))+
+  geom_point()+
+  facet_wrap(~month, scales ='free',)+
+  scale_y_log10()+
+  labs(title = 'Monthly Median Specific Conductance USGS site 09014050',
+       caption = 'Median Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
        x = 'Years',
        y = 'SC (uS/cm)')
 ```
