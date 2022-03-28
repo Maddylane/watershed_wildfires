@@ -13,12 +13,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Methods
 
-Downloaded data from USGS site number 09034250 that is along the Colorado River that was affected by the East Troublesome Fire.
+Downloaded data from USGS site number 09014050 that is at the Grand lake outlet that was affected by the East Troublesome Fire.
+Downloaded data from USGS site number 09034250 that is along troublesome creek and the Colorado river that was affected by the East Troublesome Fire.
+Downloaded data from USGS site number 09040500 that is along the Colorado River that was affected by the East Troublesome Fire.
+
+
+## USGS Sites
+
+```{r}
+site_no <- "09034250" 
+site_no2 <- "09040500"
+site_no3 <- "09014050"
+```
 
 ## Downloaded Discharge Data
 
 ```{r}
-site_no <- "09034250" 
 
 # Discharge data pulled form the site from 10/01/1986 to 1/1/2022
 q <- readNWISdv(siteNumbers = site_no,
@@ -64,17 +74,104 @@ q_month_medians <- q%>%
 ## Specific Conductance Data
 
 ```{r}
-# Specific conductance data pulled from the site from 10/01/1986 to 1/1/2022
+# Specific conductance data pulled from the sites from 10/01/1986 to 1/1/2022
+
 sc <- readNWISdv(siteNumbers = site_no,
                 parameterCd = '00095',
-                startDate = '1999-10-01', 
+                startDate = '1986-10-01', 
                 endDate = '2021-09-30')%>%
-  rename(sc = X_00095_00003)
+  rename(sc_uscm = X_00095_00003)
+
+
+
+sc2 <- readNWISdv(siteNumbers = site_no2,
+                parameterCd = '00095',
+                startDate = '1986-10-01', 
+                endDate = '2021-09-30')%>%
+  rename(sc_uscm = X_00095_00003)
+ 
+  
+
+sc3 <- readNWISdv(siteNumbers = site_no3,
+                parameterCd = '00095', 
+                startDate = '1986-10-01', 
+                endDate = '2022-01-01')%>%
+  rename(sc_uscm = X_00095_00003)%>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00095_00003_cd)
+```
+
+### Mean Monthly Data
+
+```{r}
+sc_month_means <- sc%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc_mean = mean(sc_uscm, na.rm=T))
+
+sc2_month_means <- sc2%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc2_mean = mean(sc_uscm, na.rm=T))
+
+sc3_month_means <- sc3%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc3_mean = mean(sc_uscm, na.rm=T))
+```
+
+### Min Monthly Data
+
+```{r}
+sc_month_min <- sc%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc_min = min(sc_uscm, na.rm=T))
+
+sc2_month_min <- sc2%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc2_min = min(sc_uscm, na.rm=T))
+
+sc3_month_min <- sc3%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc3_min = min(sc_uscm, na.rm=T))
+```
+
+### Median Monthly Data
+
+```{r}
+sc_month_median <- sc%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc_median = median(sc_uscm, na.rm=T))
+
+sc2_month_median <- sc2%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc2_median = median(sc_uscm, na.rm=T))
+
+sc3_month_median <- sc3%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc3_median = median(sc_uscm, na.rm=T))
 ```
 
 ## Site Discription
 
+USGS 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO
 USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.
+USGS 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO.
 
 ### Deliniated Watershed
 ```{r}

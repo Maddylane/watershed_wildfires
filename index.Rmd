@@ -17,68 +17,10 @@ library(here)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
- Wildfires put a long term scare on the land that has many major effects, one being
-  the state of the watershed the fire takes place in. Wildfires were once a common natural
-  occurrence in most forest ecosystems that did not have a devastating effect on the land.
-  But in more recent years things such as climate change, fuel load accumulation, extensive 
-  droughts, and an increase in human presence in forests has caused a devastating effect on 
-  the land when these wildfires burn. The concern that comes from these factors has put a heavier
-  strain on the understanding hoe the landscape changes and reacts to the wildfire. In particular, 
-  there is a need to understand the interaction between wildfire, and associated responses in 
-  vegetation cover, and hydrologic and geomorphic behavior. [@owens_muted_2013]
-  
-  When a wildfire burns it way through the land it often causes dramatic changes in forest vegetation 
-  structure and soil conditions, it also alters the watershed processes that control streamflow, 
-  soil erosion, nutrient export, and downstream water chemistry [@hohner_wildfires_2019].The effect
-  of erosion, infiltration, runoff, and slope failure play a major role in how the land is re-molded. 
-  Where this re-modeling creates an everlasting change to the watershed in the area. These changes can 
-  include the streamflow, landscape, and the soil of the land. High-severity fires heat the mineral soil 
-  and consume all vegetative ground cover, leaving only ash at the soil surface [@kunze_streamflow_2006].
-  When the fire creates these changes to the land it in turn effects the watershed and flow of water. These 
-  effects that occur create a domino effect that starts with the forest ecosystem and begins to alter
-  the land and watershed from the most obvious to the least observed occurrences. 
+When wildfires occur, it creates major damages through the entire land and ecosystem of the area. A large part of the ecosystem that is affected is the watershed of the area. When a wildfire burns through the area it creates long-term affects that can alter the streamflow and water quality of that watershed. These wildfires were once a common natural occurrence in most forest ecosystems that did not have a devastating effect on the land. But in more recent years things such as climate change, fuel load accumulation, extensive droughts, and an increase in human presence in forests has caused a devastating effect on the land when these wildfires burn. The concern that comes from these factors has put a heavier strain on the understanding on how the landscape changes and reacts to the wildfire. There is a need to understand the interaction between wildfire, and associated responses in vegetation cover, and hydrologic and geomorphic behavior. [@owens_muted_2013]
 
-  After the wildfires burn and cause the changes to the watersheds soil and hydrologic system 
-  it then leads to further effects on the land. Sediment load, flooding,runoff and erosion create
-  new factors to consider. These large erosion events, such as those caused by wildfire, are 
-  short-lived on geological time scales, but can dominate the long-term sediment yield 
-  response[@murphy_effects_nodate]. This is an important factor to consider due to the effect 
-  sediment load has on water quality. The mineralization of organic matter, interruption of 
-  root uptake, and loss of shade can further impact water quality by increasing stream 
-  temperatures and nutrient concentrations [@ice_effects_nodate]. The postfire effects that 
-  is seen on the water quality has to do with water surface composition and the drinking water 
-  treatment. Once down-stream the water quality effects is better seen at water treatment plants 
-  and what needs to be done now to purify the water that was affected by postfire conditions. 
-  Extreme postfire erosion can damage infrastructure, accumulate in reservoirs, and challenge 
-  coagulation, filtration, and solids handling processes [@hohner_wildfires_2019]. With all these
-  factors occurring it causes these water treatment facilities to adapt to these new quality
-  features so that the people dependent on that water source can still use the water source. 
-  Changes in the quantity and composition of dissolved organic matter (DOM) exported from burned 
-  watersheds can influence treatment process performance and the formation of disinfection byproducts 
-  (DBPs) [@hohner_wildfires_2019]. Here it is seen that even after the fire is out it does not mean
-  the effects of the fire is gone. The wildfire goes on to create issues within the water quality
-  of the watershed.
+When a wildfire burns it way through the land it often causes dramatic changes in forest vegetation structure and soil conditions, it also alters the watershed processes that control streamflow, soil erosion, nutrient export, and downstream water chemistry [@hohner_wildfires_2019]. The effect of erosion, infiltration, runoff, and slope failure play a major role in how the land is re-molded. These changes can include the streamflow, landscape, and the soil of the land. When a forest is undisturbed its soils have relatively high infiltration rates that helps to control runoff effects. Wildfires can reduce infiltration by exposing mineral soil to rain drop impact and splash that can seal soil pores at the surface [@ice_effects_nodate]. The effect that comes from the wildfire then causes dramatic changes in both annual and peak streamflows. The wildfires remove features from the land that shows decreased infiltration rates and increased runoff rates. As seen with high-severity fires heat the mineral soil and consume all vegetative ground cover, leaving only ash at the soil surface [@kunze_streamflow_2006]. With the features burned away from the land it decreases infiltration and increases runoff creating a negative effect to streamflow and water quality. Reduced infiltration then promotes overland flow, surface erosion, runoff, and sediment that contributes to debris and extreme channel impacts that affect streamflow. These effects from a wildfire creates a domino effect that starts with the forest ecosystem and begins to alter the land and watershed from the most obvious to the least observed occurrences. 
+
+After the wildfire causes changes to the watersheds soil and hydrologic system it then leads to further effects on the land and water quality. Sediment load, flooding, runoff, and erosion create new factors to consider. These large erosion events, such as those caused by wildfire, are short-lived on geological time scales, but can dominate the long-term sediment yield response[@murphy_effects_nodate]. This is an important factor to consider because of the water quality of the watershed. The mineralization of organic matter, interruption of root uptake, and loss of shade can further impact water quality by increasing stream temperatures and nutrient concentrations [@ice_effects_nodate]. Most water quality issues that occur in each watershed is seen after the wildfire is out. The postfire effects that is seen on the water quality has to do with water surface composition and the drinking water treatment. Once down-stream the water quality effects is better seen at water treatment plants and what needs to be done now to purify the water that was affected by postfire conditions. Extreme postfire erosion can damage infrastructure, accumulate in reservoirs, and challenge coagulation, filtration, and solids handling processes [@hohner_wildfires_2019]. With all these factors occurring it causes these water treatment facilities to adapt to these new quality features so that the people dependent on that water source can still use the water source. Changes in the quantity and composition of dissolved organic matter (DOM) exported from burned watersheds can influence treatment process performance and the formation of disinfection byproducts (DBPs) [@hohner_wildfires_2019]. This is important to understand to see the effects the wildfire has on the water quality. Here it is seen that even after the fire is out it does not mean the effects of the fire is gone. 
   
-  In the state of Colorado warmer spring air temperatures and longer wildfire seasons 
-  in the western US [@mast_water-quality_2016] had created the land for larger and
-  longer wildfire season. This increase has created concern for larger fires to appear 
-  across Colorado's Front Range. With the possibility of even larger fires to occur it creates
-  instability in the land once the fire burn through it, which creates alterations to the
-  watersheds associated with the fire. Postfire the largest change in the land is the increase 
-  in runoff and erosion. The effects that come from runoff and erosion has pushed for efforts to better
-  understand wildfires in the Colorado Front Range and effects it has on the soil and water. An example of 
-  a wildfire that has affected a watershed was that of the East Troublesome Fire that occurred the afternoon
-  of October 14, 2020. Fire behavior played a large role in the severity of impacts to soil in the East 
-  Troublesome fire [@us_national_forest_east_2020]. The fire also altered the watershed of this
-  area due to the location of this wildfire. The fire burned at a high elevation which is composed
-  of a dominated snowmelt watershed attached to the Upper Colorado River. The watershed response 
-  within the burned area will likely include an initial flush of ash, rill and gully erosion in 
-  headwater drainages and on steep slopes, areas with snowmelt peak flows elevated over 50% relative 
-  to pre-fire, sediment-laden flash floods following high-intensity rain events, and potentially 
-  debris flows [@us_national_forest_east_2020]. This effect on the watershed can affect 
-  the soil, land, and water quality. The streamflow is also highly affected by such a fire due to
-  the debris that fall into the streams. Debris flows are among the most hazardous consequences of
-  rainfall on burned hillslopes [@us_national_forest_east_2020]. These kinds of debris can affect
-  the streamflow and effect the watershed associated with the effected areas. This study will be looking more 
-  into the East Troublesome Fire and the effects it has had on the soil and water quality of the watershed.
-  
+In the state of Colorado warmer spring air temperatures and longer wildfire seasons in the western US [@mast_water-quality_2016] had created the land for larger and longer wildfire season. This increase has created concern for larger fires to appear across Colorado's Front Range. With the possibility of even larger fires to occur it creates instability in the land once the fire burn through it, which creates alterations to the watersheds associated with the fire. Postfire the largest change in the land is the increase in runoff and erosion. The effects that come from runoff and erosion has pushed for efforts to better understand wildfires in the Colorado Front Range and effects it has on the soil and water quality. An example of a wildfire that has affected a watershed was that of the East Troublesome Fire that occurred the afternoon of October 14, 2020. Fire behavior played a large role in the severity of impacts to soil in the East Troublesome fire [@us_national_forest_east_2020]. The fire also altered the watershed of this area due to the location of this wildfire. The fire burned at a high elevation which is composed of a dominated snowmelt watershed attached to the Upper Colorado River. The watershed response within the burned area will likely include an initial flush of ash, rill, and gully erosion in headwater drainages and on steep slopes, areas with snowmelt peak flows elevated over 50% relative to pre-fire, sediment-laden flash floods following high-intensity rain events, and potentially debris flows [@us_national_forest_east_2020]. This effect on the watershed can affect the soil, land, and water quality. The streamflow is also highly affected by such a fire due to the debris that fall into the streams. Debris flows are among the most hazardous consequences of rainfall on burned hillslopes [@us_national_forest_east_2020]. These kinds of debris can affect the streamflow and effect the watershed overall. This study will be looking more into the East Troublesome Fire and the effects, it has had on the streamflow and water quality of the watershed.
