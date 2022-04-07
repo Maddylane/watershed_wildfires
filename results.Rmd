@@ -161,22 +161,4 @@ ggplot(Turbidity_C, aes(x = date, y = mean_T3)) +
        y = 'T (formazin nephelometric units (FNU))')
 ```
 
-### Turbidity & Discharge
 
-```{r}
-
-
-ggplot() + 
-geom_line(data=Turbidity_2, aes(x=Date, y= mean_T2), color='brown') + 
-geom_line(data=q2, aes(x=Date, y=q_cfs), color='blue')=
- scale_y_continuous(
-    
-    # Features of the first axis
-    name = "Turbidity",
-    
-    # Add a second axis and specify its features
-    sec.axis = sec_axis(~.*q_cfs, name="Discharge")
-  )
-
-
-```

@@ -268,11 +268,7 @@ Turbidity_C <- read_csv('data/T3maddy.csv')
 
 ```
 
-### Turbidity & Discharge
 
-```{r}
-q2_T2 <- merge(q2, Turbidity_2, by = Date)
-```
 
 ## Site Discription
 

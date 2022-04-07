@@ -1,0 +1,517 @@
+---
+title: "Wildfires Affect on East Troublesome Watershed"
+author: "Madison Thompson"
+date: "3/28/2022"
+site: bookdown::bookdown_site
+documentclass: docs
+output:
+  bookdown::gitbook: default
+bibliography: citations.bib
+---
+
+# Introduction 
+
+```{r setup, include=FALSE}
+library(here)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+When wildfires occur, it creates major damages through the entire land and ecosystem of the area. A large part of the ecosystem that is affected is the watershed of the area. When a wildfire burns through the area it creates long-term affects that can alter the streamflow and water quality of that watershed. These wildfires were once a common natural occurrence in most forest ecosystems that did not have a devastating effect on the land. But in more recent years things such as climate change, fuel load accumulation, extensive droughts, and an increase in human presence in forests has caused a devastating effect on the land when these wildfires burn. The concern that comes from these factors has put a heavier strain on the understanding on how the landscape changes and reacts to the wildfire. There is a need to understand the interaction between wildfire, and associated responses in vegetation cover, and hydrologic and geomorphic behavior. [@owens_muted_2013]
+
+When a wildfire burns it way through the land it often causes dramatic changes in forest vegetation structure and soil conditions, it also alters the watershed processes that control streamflow, soil erosion, nutrient export, and downstream water chemistry [@hohner_wildfires_2019]. The effect of erosion, infiltration, runoff, and slope failure play a major role in how the land is re-molded. These changes can include the streamflow, landscape, and the soil of the land. When a forest is undisturbed its soils have relatively high infiltration rates that helps to control runoff effects. Wildfires can reduce infiltration by exposing mineral soil to rain drop impact and splash that can seal soil pores at the surface [@ice_effects_nodate]. The effect that comes from the wildfire then causes dramatic changes in both annual and peak streamflows. The wildfires remove features from the land that shows decreased infiltration rates and increased runoff rates. As seen with high-severity fires heat the mineral soil and consume all vegetative ground cover, leaving only ash at the soil surface [@kunze_streamflow_2006]. With the features burned away from the land it decreases infiltration and increases runoff creating a negative effect to streamflow and water quality. Reduced infiltration then promotes overland flow, surface erosion, runoff, and sediment that contributes to debris and extreme channel impacts that affect streamflow. These effects from a wildfire creates a domino effect that starts with the forest ecosystem and begins to alter the land and watershed from the most obvious to the least observed occurrences. 
+
+
+
+After the wildfire causes changes to the watersheds soil and hydrologic system it then leads to further effects on the land and water quality. Sediment load, flooding, runoff, and erosion create new factors to consider. These large erosion events, such as those caused by wildfire, are short-lived on geological time scales, but can dominate the long-term sediment yield response[@murphy_effects_nodate]. This is an important factor to consider because of the water quality of the watershed. The mineralization of organic matter, interruption of root uptake, and loss of shade can further impact water quality by increasing stream temperatures and nutrient concentrations [@ice_effects_nodate]. Most water quality issues that occur in each watershed is seen after the wildfire is out. The postfire effects that is seen on the water quality has to do with water surface composition and the drinking water treatment. Once down-stream the water quality effects is better seen at water treatment plants and what needs to be done now to purify the water that was affected by postfire conditions. Extreme postfire erosion can damage infrastructure, accumulate in reservoirs, and challenge coagulation, filtration, and solids handling processes [@hohner_wildfires_2019]. With all these factors occurring it causes these water treatment facilities to adapt to these new quality features so that the people dependent on that water source can still use the water source. Changes in the quantity and composition of dissolved organic matter (DOM) exported from burned watersheds can influence treatment process performance and the formation of disinfection byproducts (DBPs) [@hohner_wildfires_2019]. This is important to understand to see the effects the wildfire has on the water quality. Here it is seen that even after the fire is out it does not mean the effects of the fire is gone. 
+  
+In the state of Colorado warmer spring air temperatures and longer wildfire seasons in the western US [@mast_water-quality_2016] had created the land for larger and longer wildfire season. This increase has created concern for larger fires to appear across Colorado's Front Range. With the possibility of even larger fires to occur it creates instability in the land once the fire burn through it, which creates alterations to the watersheds associated with the fire. Postfire the largest change in the land is the increase in runoff and erosion. The effects that come from runoff and erosion has pushed for efforts to better understand wildfires in the Colorado Front Range and effects it has on the soil and water quality. An example of a wildfire that has affected a watershed was that of the East Troublesome Fire that occurred the afternoon of October 14, 2020. Fire behavior played a large role in the severity of impacts to soil in the East Troublesome fire [@us_national_forest_east_2020]. The fire also altered the watershed of this area due to the location of this wildfire. The fire burned at a high elevation which is composed of a dominated snowmelt watershed attached to the Upper Colorado River. The watershed response within the burned area will likely include an initial flush of ash, rill, and gully erosion in headwater drainages and on steep slopes, areas with snowmelt peak flows elevated over 50% relative to pre-fire, sediment-laden flash floods following high-intensity rain events, and potentially debris flows [@us_national_forest_east_2020]. This effect on the watershed can affect the soil, land, and water quality. The streamflow is also highly affected by such a fire due to the debris that fall into the streams. Debris flows are among the most hazardous consequences of rainfall on burned hillslopes [@us_national_forest_east_2020]. These kinds of debris can affect the streamflow and effect the watershed overall. This study will be looking more into the East Troublesome Fire and the effects, it has had on the streamflow and water quality of the watershed.
+
+
+
+<!--chapter:end:index.Rmd-->
+
+```{r setup2, include=FALSE}
+library(here)
+library(dataRetrieval)
+library(tidyverse)
+library(trend)
+library(lubridate)
+library(sf)
+library(nhdplusTools)
+library(mapview)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Methods
+
+Downloaded data from USGS site number 09014050 that is at the Grand lake outlet that was affected by the East Troublesome Fire.
+Downloaded data from USGS site number 09034250 that is along troublesome creek and the Colorado river that was affected by the East Troublesome Fire.
+Downloaded data from USGS site number 09040500 that is along the Colorado River that was affected by the East Troublesome Fire.
+
+
+## USGS Sites
+
+```{r}
+site_no <- "09034250" 
+site_no2 <- "09040500"
+site_no3 <- "09014050"
+
+control_site <- "09060799"
+```
+
+## Downloaded Discharge Data
+
+```{r}
+
+# Discharge data pulled form the site_no from 10/01/1986 to 1/1/2022
+q <- readNWISdv(siteNumbers = site_no,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+
+# site_no2
+q2 <- readNWISdv(siteNumbers = site_no2,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+
+# site_no3
+q3 <- readNWISdv(siteNumbers = site_no3,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+
+# control site
+qC <- readNWISdv(siteNumbers = control_site,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+```
+
+
+### Mean Monthly Discharge site 09034250
+```{r}
+q_month_means <- q%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(q_mean = mean(q_cfs, na.rm=T))
+
+```
+
+### Min Monthly Discharge site 09034250
+```{r}
+q_month_mins <- q%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(q_min = min(q_cfs))
+
+```
+
+### Median Monthly Discharge site 09034250
+```{r}
+q_month_medians <- q%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(q_median = median(q_cfs))
+
+```
+
+## Specific Conductance Data
+
+```{r}
+# Specific conductance data pulled from the sites from 10/01/1986 to 1/1/2022
+
+sc <- readNWISdv(siteNumbers = site_no,
+                parameterCd = '00095',
+                startDate = '1986-10-01', 
+                endDate = '2021-09-30')%>%
+  rename(sc_uscm = X_00095_00003)
+
+
+
+sc2 <- readNWISdv(siteNumbers = site_no2,
+                parameterCd = '00095',
+                startDate = '1986-10-01', 
+                endDate = '2021-09-30')%>%
+  rename(sc_uscm = X_00095_00003)
+ 
+#
+
+alt3 <- readNWISdv(siteNumbers = site_no3,
+                parameterCd = '00095', 
+                startDate = '1986-10-01', 
+                endDate = '2022-01-01')%>%
+  rename(sc_uscm = X_00095_00003)
+#
+        
+
+sc3 <- readNWISdv(siteNumbers = site_no3,
+                parameterCd = '00095', 
+                startDate = '1986-10-01', 
+                endDate = '2022-01-01')%>%
+  rename(sc_uscm = X_00095_00003)%>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00095_00003_cd)
+```
+
+### Joined Data
+
+```{r}
+allsc <- full_join(sc, sc2, alt3, by = c('Date','site_no', 'sc_uscm'))
+
+w_sc <- spread(allsc, site_no, sc_uscm)
+```
+
+### Mean Monthly Data
+
+```{r}
+sc_month_means <- sc%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc_mean = mean(sc_uscm, na.rm=T))
+
+sc2_month_means <- sc2%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc2_mean = mean(sc_uscm, na.rm=T))
+
+sc3_month_means <- sc3%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc3_mean = mean(sc_uscm, na.rm=T))
+```
+
+### Min Monthly Data
+
+```{r}
+sc_month_min <- sc%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc_min = min(sc_uscm, na.rm=T))
+
+sc2_month_min <- sc2%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc2_min = min(sc_uscm, na.rm=T))
+
+sc3_month_min <- sc3%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc3_min = min(sc_uscm, na.rm=T))
+```
+
+### Median Monthly Data
+
+```{r}
+sc_month_median <- sc%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc_median = median(sc_uscm, na.rm=T))
+
+sc2_month_median <- sc2%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc2_median = median(sc_uscm, na.rm=T))
+
+sc3_month_median <- sc3%>%
+  mutate(month = month(Date),
+         year = year(Date))%>%
+  group_by(year, month)%>%
+  summarize(sc3_median = median(sc_uscm, na.rm=T))
+```
+
+## Turbidity 
+
+```{r}
+# site 1 daily turbidity 
+T1 <- readNWISuv(siteNumbers = site_no,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_T1 = mean(X_63680_00000))
+
+write_csv(T1,'data/T1maddy.csv')
+
+Turbidity_1 <- read_csv('data/T1maddy.csv')
+
+# site 2 daily turbidity 
+T2 <- readNWISuv(siteNumbers = site_no2,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_T2 = mean(X_63680_00000))
+
+write_csv(T2,'data/T2maddy.csv')
+
+Turbidity_2 <- read_csv('data/T2maddy.csv')%>%
+  rename( Date = date)
+
+# site 3 daily turbidity
+T3 <- readNWISuv(siteNumbers = site_no3,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_T3 = mean(X_63680_00000))
+
+
+write_csv(T3,'data/T3maddy.csv')
+
+Turbidity_3 <- read_csv('data/T3maddy.csv')
+
+# control site daily turbidity
+TC <- readNWISuv(siteNumbers = control_site,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_TC = mean(X_63680_00000))
+
+
+write_csv(TC,'data/TCmaddy.csv')
+
+Turbidity_C <- read_csv('data/T3maddy.csv')
+
+```
+
+### Turbidity & Discharge
+
+```{r}
+q2_T2 <- merge(q2, Turbidity_2, by = Date)
+```
+
+## Site Discription
+
+USGS 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO
+USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.
+USGS 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO.
+
+### Deliniated Watershed
+```{r}
+watershed <- st_read('Granby.geojson')%>%
+  dplyr::filter(id=='globalwatershed')
+
+mapview(watershed)
+```
+
+
+<!--chapter:end:1_methods.Rmd-->
+
+
+# Results
+
+## Discharge Data
+
+### Plotted Data
+
+```{r}
+# Plot for discharge 
+ggplot(q, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
+
+# site_no2
+ggplot(q2, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
+
+# site_no3
+ggplot(q3, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
+
+# control site
+ggplot(qC, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
+```
+
+### Trending Month Mean, Min, and Median Data
+
+```{r}
+ggplot(q_month_means, aes(x = year, y = q_mean))+
+  geom_point()+
+  facet_wrap(~month, scales ='free',)+
+  scale_y_log10()+
+  labs(title = 'Monthly Mean Dishcarge',
+       caption = 'Mean dishcarge for January (1) to December (12) from the year 1986 to 2021',
+       x = 'Q (cfs)',
+       y = 'Years')
+  
+
+ggplot(q_month_mins, aes(x = year, y = q_min))+
+  geom_point()+
+  facet_wrap(~month, scales ='free')+
+  scale_y_log10()+
+    labs(title = 'Monthly Minimum Discharge',
+       caption = 'Minimum dishcarge for January (1) to December (12) from the year 1986 to 2021',
+       x = 'Q (cfs)',
+       y = 'Years')
+
+ggplot(q_month_medians, aes(x = year, y = q_median))+
+  geom_point()+
+  facet_wrap(~month, scales ='free')+
+  scale_y_log10()+
+    labs(title = 'Monthly Median Discharge',
+       caption = 'Median dishcarge for January (1) to December (12) from the year 1986 to 2021',
+       x = 'Q (cfs)',
+       y = 'Years')
+```
+
+
+## Specific Conductance Data
+
+### Plotted Data
+
+```{r}
+# Plot for specific conductance 
+ggplot(sc, aes(x = Date, y = sc_uscm)) + 
+  geom_point(size = 1) + 
+  geom_line(size = 0.5) +
+  labs(title = 'Specific Conductance USGS site 09034250',
+       caption = 'Specific Conductance data from USGS site 09034250 from 2021-06-24 to 2021-09-30',
+       x = 'Date',
+       y = 'SC (uS/cm)')
+
+ggplot(sc2, aes(x = Date, y = sc_uscm)) + 
+  geom_point(size = 1) + 
+  geom_line(size = 0.5) +
+   labs(title = 'Specific Conductance USGS site 09040500',
+       caption = 'Specific Conductance data from USGS site 09040500 from 2021-06-08 to 2021-09-30',
+       x = 'Date',
+       y = 'SC (uS/cm)')
+
+ggplot(sc3, aes(x = Date, y = sc_uscm)) + 
+  geom_point(size = 1) + 
+  geom_line(size = 0.5) +
+   labs(title = 'Specific Conductance USGS site 09014050',
+       caption = 'Specific Conductance data from USGS site 09014050 from 2011-09-30 to 2021-09-30',
+       x = 'Year',
+       y = 'SC (uS/cm)')
+
+
+```
+
+### Trending Months Mean, Min, and Median Data 
+
+```{r}
+ggplot(sc3_month_means, aes(x = year, y = sc3_mean))+
+  geom_point()+
+  facet_wrap(~month, scales ='free',)+
+  scale_y_log10()+
+  labs(title = 'Monthly Mean Specific Conductance USGS site 09014050',
+       caption = 'Mean Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
+       x = 'Years',
+       y = 'SC (uS/cm)')
+
+ggplot(sc3_month_min, aes(x = year, y = sc3_min))+
+  geom_point()+
+  facet_wrap(~month, scales ='free',)+
+  scale_y_log10()+
+  labs(title = 'Monthly Min Specific Conductance USGS site 09014050',
+       caption = 'Minimum Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
+       x = 'Years',
+       y = 'SC (uS/cm)')
+
+ggplot(sc3_month_median, aes(x = year, y = sc3_median))+
+  geom_point()+
+  facet_wrap(~month, scales ='free',)+
+  scale_y_log10()+
+  labs(title = 'Monthly Median Specific Conductance USGS site 09014050',
+       caption = 'Median Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
+       x = 'Years',
+       y = 'SC (uS/cm)')
+```
+
+## Turbidity
+
+```{r}
+# site 1
+ggplot(Turbidity_1, aes(x = date, y = mean_T1)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09034250',
+       caption = 'Turbidity data from USGS site 09034250 from 2021-06-22 to 2021-10-01',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+
+# site 2
+ggplot(Turbidity_2, aes(x = Date, y = mean_T2)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09040500',
+       caption = 'Turbidity data from USGS site 09040500 from 2021-06-07 to 2021-10-01',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+
+# site 3
+ggplot(Turbidity_3, aes(x = date, y = mean_T3)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09014050',
+       caption = 'Turbidity data from USGS site 09014050 from 2010-04-13 to 2021-10-01',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+
+#control site
+ggplot(Turbidity_C, aes(x = date, y = mean_T3)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09060799',
+       caption = 'Turbidity data from USGS site 09060799 from 2021-07-15 to 	
+2022-04-07',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+```
+
+### Turbidity & Discharge
+
+```{r}
+
+
+ggplot() + 
+geom_line(data=Turbidity_2, aes(x=Date, y= mean_T2), color='brown') + 
+geom_line(data=q2, aes(x=Date, y=q_cfs), color='blue')=
+ scale_y_continuous(
+    
+    # Features of the first axis
+    name = "Turbidity",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*q_cfs, name="Discharge")
+  )
+
+
+```
+
+<!--chapter:end:results.Rmd-->
+
+
+
+`r if (knitr::is_html_output()) '# References {-}'`
+
+<!--chapter:end:wrapping_up.Rmd-->
+
