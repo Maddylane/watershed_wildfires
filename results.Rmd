@@ -10,6 +10,21 @@
 ggplot(q, aes(x = Date, y = q_cfs)) + 
   geom_line() + 
   ylab('Q (cfs)')
+
+# site_no2
+ggplot(q2, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
+
+# site_no3
+ggplot(q3, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
+
+# control site
+ggplot(qC, aes(x = Date, y = q_cfs)) + 
+  geom_line() + 
+  ylab('Q (cfs)')
 ```
 
 ### Trending Month Mean, Min, and Median Data
@@ -107,4 +122,61 @@ ggplot(sc3_month_median, aes(x = year, y = sc3_median))+
        caption = 'Median Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
        x = 'Years',
        y = 'SC (uS/cm)')
+```
+
+## Turbidity
+
+```{r}
+# site 1
+ggplot(Turbidity_1, aes(x = date, y = mean_T1)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09034250',
+       caption = 'Turbidity data from USGS site 09034250 from 2021-06-22 to 2021-10-01',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+
+# site 2
+ggplot(Turbidity_2, aes(x = Date, y = mean_T2)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09040500',
+       caption = 'Turbidity data from USGS site 09040500 from 2021-06-07 to 2021-10-01',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+
+# site 3
+ggplot(Turbidity_3, aes(x = date, y = mean_T3)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09014050',
+       caption = 'Turbidity data from USGS site 09014050 from 2010-04-13 to 2021-10-01',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+
+#control site
+ggplot(Turbidity_C, aes(x = date, y = mean_T3)) + 
+  geom_line(size = 1) + 
+  labs(title = 'Turbidity USGS site 09060799',
+       caption = 'Turbidity data from USGS site 09060799 from 2021-07-15 to 	
+2022-04-07',
+       x = 'Date',
+       y = 'T (formazin nephelometric units (FNU))')
+```
+
+### Turbidity & Discharge
+
+```{r}
+
+
+ggplot() + 
+geom_line(data=Turbidity_2, aes(x=Date, y= mean_T2), color='brown') + 
+geom_line(data=q2, aes(x=Date, y=q_cfs), color='blue')=
+ scale_y_continuous(
+    
+    # Features of the first axis
+    name = "Turbidity",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*q_cfs, name="Discharge")
+  )
+
+
 ```

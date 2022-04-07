@@ -24,14 +24,43 @@ Downloaded data from USGS site number 09040500 that is along the Colorado River 
 site_no <- "09034250" 
 site_no2 <- "09040500"
 site_no3 <- "09014050"
+
+control_site <- "09060799"
 ```
 
 ## Downloaded Discharge Data
 
 ```{r}
 
-# Discharge data pulled form the site from 10/01/1986 to 1/1/2022
+# Discharge data pulled form the site_no from 10/01/1986 to 1/1/2022
 q <- readNWISdv(siteNumbers = site_no,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+
+# site_no2
+q2 <- readNWISdv(siteNumbers = site_no2,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+
+# site_no3
+q3 <- readNWISdv(siteNumbers = site_no3,
+                parameterCd = '00060',
+                startDate = '1986-10-01',
+                endDate = '2022-01-01') %>%
+  rename(q_cfs = X_00060_00003) %>%
+  addWaterYear(.) %>%
+  select(-agency_cd, -X_00060_00003_cd)
+
+# control site
+qC <- readNWISdv(siteNumbers = control_site,
                 parameterCd = '00060',
                 startDate = '1986-10-01',
                 endDate = '2022-01-01') %>%
@@ -41,7 +70,7 @@ q <- readNWISdv(siteNumbers = site_no,
 ```
 
 
-### Mean Monthly Discharge 
+### Mean Monthly Discharge site 09034250
 ```{r}
 q_month_means <- q%>%
   mutate(month = month(Date),
@@ -51,7 +80,7 @@ q_month_means <- q%>%
 
 ```
 
-### Min Monthly Discharge 
+### Min Monthly Discharge site 09034250
 ```{r}
 q_month_mins <- q%>%
   mutate(month = month(Date),
@@ -61,7 +90,7 @@ q_month_mins <- q%>%
 
 ```
 
-### Median Monthly Discharge 
+### Median Monthly Discharge site 09034250
 ```{r}
 q_month_medians <- q%>%
   mutate(month = month(Date),
@@ -90,7 +119,15 @@ sc2 <- readNWISdv(siteNumbers = site_no2,
                 endDate = '2021-09-30')%>%
   rename(sc_uscm = X_00095_00003)
  
-  
+#
+
+alt3 <- readNWISdv(siteNumbers = site_no3,
+                parameterCd = '00095', 
+                startDate = '1986-10-01', 
+                endDate = '2022-01-01')%>%
+  rename(sc_uscm = X_00095_00003)
+#
+        
 
 sc3 <- readNWISdv(siteNumbers = site_no3,
                 parameterCd = '00095', 
@@ -99,6 +136,14 @@ sc3 <- readNWISdv(siteNumbers = site_no3,
   rename(sc_uscm = X_00095_00003)%>%
   addWaterYear(.) %>%
   select(-agency_cd, -X_00095_00003_cd)
+```
+
+### Joined Data
+
+```{r}
+allsc <- full_join(sc, sc2, alt3, by = c('Date','site_no', 'sc_uscm'))
+
+w_sc <- spread(allsc, site_no, sc_uscm)
 ```
 
 ### Mean Monthly Data
@@ -167,6 +212,68 @@ sc3_month_median <- sc3%>%
   summarize(sc3_median = median(sc_uscm, na.rm=T))
 ```
 
+## Turbidity 
+
+```{r}
+# site 1 daily turbidity 
+T1 <- readNWISuv(siteNumbers = site_no,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_T1 = mean(X_63680_00000))
+
+write_csv(T1,'data/T1maddy.csv')
+
+Turbidity_1 <- read_csv('data/T1maddy.csv')
+
+# site 2 daily turbidity 
+T2 <- readNWISuv(siteNumbers = site_no2,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_T2 = mean(X_63680_00000))
+
+write_csv(T2,'data/T2maddy.csv')
+
+Turbidity_2 <- read_csv('data/T2maddy.csv')%>%
+  rename( Date = date)
+
+# site 3 daily turbidity
+T3 <- readNWISuv(siteNumbers = site_no3,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_T3 = mean(X_63680_00000))
+
+
+write_csv(T3,'data/T3maddy.csv')
+
+Turbidity_3 <- read_csv('data/T3maddy.csv')
+
+# control site daily turbidity
+TC <- readNWISuv(siteNumbers = control_site,
+                parameterCd = '63680')%>%
+  mutate(dateTime = lubridate::as_datetime(dateTime),
+         date = lubridate::as_date(dateTime))%>%
+  group_by(site_no, date)%>%
+  summarize(mean_TC = mean(X_63680_00000))
+
+
+write_csv(TC,'data/TCmaddy.csv')
+
+Turbidity_C <- read_csv('data/T3maddy.csv')
+
+```
+
+### Turbidity & Discharge
+
+```{r}
+q2_T2 <- merge(q2, Turbidity_2, by = Date)
+```
+
 ## Site Discription
 
 USGS 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO
@@ -180,3 +287,4 @@ watershed <- st_read('Granby.geojson')%>%
 
 mapview(watershed)
 ```
+
