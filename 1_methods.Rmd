@@ -225,7 +225,8 @@ T1 <- readNWISuv(siteNumbers = site_no,
 
 write_csv(T1,'data/T1maddy.csv')
 
-Turbidity_1 <- read_csv('data/T1maddy.csv')
+Turbidity_1 <- read_csv('data/T1maddy.csv')%>%
+  rename( Date = date)
 
 # site 2 daily turbidity 
 T2 <- readNWISuv(siteNumbers = site_no2,
@@ -251,7 +252,8 @@ T3 <- readNWISuv(siteNumbers = site_no3,
 
 write_csv(T3,'data/T3maddy.csv')
 
-Turbidity_3 <- read_csv('data/T3maddy.csv')
+Turbidity_3 <- read_csv('data/T3maddy.csv')%>%
+  rename( Date = date)
 
 # control site daily turbidity
 TC <- readNWISuv(siteNumbers = control_site,
@@ -264,11 +266,24 @@ TC <- readNWISuv(siteNumbers = control_site,
 
 write_csv(TC,'data/TCmaddy.csv')
 
-Turbidity_C <- read_csv('data/T3maddy.csv')
+Turbidity_C <- read_csv('data/T3maddy.csv')%>%
+  rename( Date = date)
 
 ```
 
+## Combined Data
 
+### Discharge
+
+```{r}
+Q_c <- rbind(q,q2,q3,qC)
+```
+
+### Turbidity
+
+```{r}
+
+```
 
 ## Site Discription
 
@@ -282,5 +297,10 @@ watershed <- st_read('Granby.geojson')%>%
   dplyr::filter(id=='globalwatershed')
 
 mapview(watershed)
+
+watershed_2 <- st_read('Troublesome.geojson')%>%
+  dplyr::filter(id=='globalwatershed')
+
+mapview(watershed_2)
 ```
 

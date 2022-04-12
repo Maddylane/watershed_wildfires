@@ -128,7 +128,7 @@ ggplot(sc3_month_median, aes(x = year, y = sc3_median))+
 
 ```{r}
 # site 1
-ggplot(Turbidity_1, aes(x = date, y = mean_T1)) + 
+ggplot(Turbidity_1, aes(x = Date, y = mean_T1)) + 
   geom_line(size = 1) + 
   labs(title = 'Turbidity USGS site 09034250',
        caption = 'Turbidity data from USGS site 09034250 from 2021-06-22 to 2021-10-01',
@@ -144,7 +144,7 @@ ggplot(Turbidity_2, aes(x = Date, y = mean_T2)) +
        y = 'T (formazin nephelometric units (FNU))')
 
 # site 3
-ggplot(Turbidity_3, aes(x = date, y = mean_T3)) + 
+ggplot(Turbidity_3, aes(x = Date, y = mean_T3)) + 
   geom_line(size = 1) + 
   labs(title = 'Turbidity USGS site 09014050',
        caption = 'Turbidity data from USGS site 09014050 from 2010-04-13 to 2021-10-01',
@@ -152,7 +152,7 @@ ggplot(Turbidity_3, aes(x = date, y = mean_T3)) +
        y = 'T (formazin nephelometric units (FNU))')
 
 #control site
-ggplot(Turbidity_C, aes(x = date, y = mean_T3)) + 
+ggplot(Turbidity_C, aes(x = Date, y = mean_T3)) + 
   geom_line(size = 1) + 
   labs(title = 'Turbidity USGS site 09060799',
        caption = 'Turbidity data from USGS site 09060799 from 2021-07-15 to 	
@@ -161,4 +161,11 @@ ggplot(Turbidity_C, aes(x = date, y = mean_T3)) +
        y = 'T (formazin nephelometric units (FNU))')
 ```
 
+## Comnined Data
 
+#### Discharge
+
+```{r}
+ggplot(Q_c, aes(x= site_no, y= q_cfs))+
+  geom_boxplot()
+```
