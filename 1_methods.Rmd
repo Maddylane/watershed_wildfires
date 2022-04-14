@@ -25,7 +25,7 @@ site_no <- "09034250"
 site_no2 <- "09040500"
 site_no3 <- "09014050"
 
-control_site <- "09060799"
+control_site <- "09085000"
 ```
 
 ## Downloaded Discharge Data
@@ -41,6 +41,9 @@ q <- readNWISdv(siteNumbers = site_no,
   addWaterYear(.) %>%
   select(-agency_cd, -X_00060_00003_cd)
 
+q_ind <- q %>%
+  mutate(q_in = (((q_cfs / (2.311*10^10))*3600)*12)*24 )
+
 # site_no2
 q2 <- readNWISdv(siteNumbers = site_no2,
                 parameterCd = '00060',
@@ -49,6 +52,9 @@ q2 <- readNWISdv(siteNumbers = site_no2,
   rename(q_cfs = X_00060_00003) %>%
   addWaterYear(.) %>%
   select(-agency_cd, -X_00060_00003_cd)
+
+q2_ind <- q %>%
+  mutate(q_in = (((q_cfs / (4.684*10^9))*3600)*12)*24 )
 
 # site_no3
 q3 <- readNWISdv(siteNumbers = site_no3,
@@ -59,6 +65,9 @@ q3 <- readNWISdv(siteNumbers = site_no3,
   addWaterYear(.) %>%
   select(-agency_cd, -X_00060_00003_cd)
 
+q3_ind <- q %>%
+  mutate(q_in = (((q_cfs / (4.684*10^9))*3600)*12)*24 )
+
 # control site
 qC <- readNWISdv(siteNumbers = control_site,
                 parameterCd = '00060',
@@ -67,6 +76,9 @@ qC <- readNWISdv(siteNumbers = control_site,
   rename(q_cfs = X_00060_00003) %>%
   addWaterYear(.) %>%
   select(-agency_cd, -X_00060_00003_cd)
+
+qC_ind <- q %>%
+  mutate(q_in = (((q_cfs / (4.0424*10^10))*3600)*12)*24 )
 ```
 
 
@@ -100,117 +112,6 @@ q_month_medians <- q%>%
 
 ```
 
-## Specific Conductance Data
-
-```{r}
-# Specific conductance data pulled from the sites from 10/01/1986 to 1/1/2022
-
-sc <- readNWISdv(siteNumbers = site_no,
-                parameterCd = '00095',
-                startDate = '1986-10-01', 
-                endDate = '2021-09-30')%>%
-  rename(sc_uscm = X_00095_00003)
-
-
-
-sc2 <- readNWISdv(siteNumbers = site_no2,
-                parameterCd = '00095',
-                startDate = '1986-10-01', 
-                endDate = '2021-09-30')%>%
-  rename(sc_uscm = X_00095_00003)
- 
-#
-
-alt3 <- readNWISdv(siteNumbers = site_no3,
-                parameterCd = '00095', 
-                startDate = '1986-10-01', 
-                endDate = '2022-01-01')%>%
-  rename(sc_uscm = X_00095_00003)
-#
-        
-
-sc3 <- readNWISdv(siteNumbers = site_no3,
-                parameterCd = '00095', 
-                startDate = '1986-10-01', 
-                endDate = '2022-01-01')%>%
-  rename(sc_uscm = X_00095_00003)%>%
-  addWaterYear(.) %>%
-  select(-agency_cd, -X_00095_00003_cd)
-```
-
-### Joined Data
-
-```{r}
-allsc <- full_join(sc, sc2, alt3, by = c('Date','site_no', 'sc_uscm'))
-
-w_sc <- spread(allsc, site_no, sc_uscm)
-```
-
-### Mean Monthly Data
-
-```{r}
-sc_month_means <- sc%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc_mean = mean(sc_uscm, na.rm=T))
-
-sc2_month_means <- sc2%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc2_mean = mean(sc_uscm, na.rm=T))
-
-sc3_month_means <- sc3%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc3_mean = mean(sc_uscm, na.rm=T))
-```
-
-### Min Monthly Data
-
-```{r}
-sc_month_min <- sc%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc_min = min(sc_uscm, na.rm=T))
-
-sc2_month_min <- sc2%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc2_min = min(sc_uscm, na.rm=T))
-
-sc3_month_min <- sc3%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc3_min = min(sc_uscm, na.rm=T))
-```
-
-### Median Monthly Data
-
-```{r}
-sc_month_median <- sc%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc_median = median(sc_uscm, na.rm=T))
-
-sc2_month_median <- sc2%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc2_median = median(sc_uscm, na.rm=T))
-
-sc3_month_median <- sc3%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(sc3_median = median(sc_uscm, na.rm=T))
-```
 
 ## Turbidity 
 
@@ -221,7 +122,7 @@ T1 <- readNWISuv(siteNumbers = site_no,
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
   group_by(site_no, date)%>%
-  summarize(mean_T1 = mean(X_63680_00000))
+  summarize(mean = mean(X_63680_00000))
 
 write_csv(T1,'data/T1maddy.csv')
 
@@ -234,7 +135,7 @@ T2 <- readNWISuv(siteNumbers = site_no2,
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
   group_by(site_no, date)%>%
-  summarize(mean_T2 = mean(X_63680_00000))
+  summarize(mean = mean(X_63680_00000))
 
 write_csv(T2,'data/T2maddy.csv')
 
@@ -247,7 +148,7 @@ T3 <- readNWISuv(siteNumbers = site_no3,
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
   group_by(site_no, date)%>%
-  summarize(mean_T3 = mean(X_63680_00000))
+  summarize(mean = mean(X_63680_00000))
 
 
 write_csv(T3,'data/T3maddy.csv')
@@ -261,12 +162,12 @@ TC <- readNWISuv(siteNumbers = control_site,
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
   group_by(site_no, date)%>%
-  summarize(mean_TC = mean(X_63680_00000))
+  summarize(mean = mean(X_63680_00000))
 
 
 write_csv(TC,'data/TCmaddy.csv')
 
-Turbidity_C <- read_csv('data/T3maddy.csv')%>%
+Turbidity_C <- read_csv('data/TCmaddy.csv')%>%
   rename( Date = date)
 
 ```
@@ -276,13 +177,14 @@ Turbidity_C <- read_csv('data/T3maddy.csv')%>%
 ### Discharge
 
 ```{r}
-Q_c <- rbind(q,q2,q3,qC)
+Q_c <- rbind(q_ind,q2_ind,q3_ind,qC_ind)
+
 ```
 
 ### Turbidity
 
 ```{r}
-
+T_c <- rbind(Turbidity_1, Turbidity_2, Turbidity_3, Turbidity_C)
 ```
 
 ## Site Discription
@@ -302,5 +204,10 @@ watershed_2 <- st_read('Troublesome.geojson')%>%
   dplyr::filter(id=='globalwatershed')
 
 mapview(watershed_2)
+
+watershed_c <- st_read('Control.geojson')%>%
+  dplyr::filter(id=='globalwatershed')
+
+mapview(watershed_c)
 ```
 

@@ -5,11 +5,6 @@ downloaded-discharge-data
 mean-monthly-discharge-site-09034250
 min-monthly-discharge-site-09034250
 median-monthly-discharge-site-09034250
-specific-conductance-data
-joined-data
-mean-monthly-data
-min-monthly-data
-median-monthly-data
 turbidity
 combined-data
 discharge
@@ -20,9 +15,7 @@ results
 discharge-data
 plotted-data
 trending-month-mean-min-and-median-data
-specific-conductance-data-1
-plotted-data-1
-trending-months-mean-min-and-median-data
 turbidity-2
-comnined-data
+combined-data-1
 discharge-1
+turbidity-3

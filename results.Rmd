@@ -11,20 +11,36 @@ ggplot(q, aes(x = Date, y = q_cfs)) +
   geom_line() + 
   ylab('Q (cfs)')
 
+ggplot(q_ind, aes(x = Date, y = q_in))+
+  geom_line()+
+  ylab('Q (in/day)')
+
 # site_no2
 ggplot(q2, aes(x = Date, y = q_cfs)) + 
   geom_line() + 
   ylab('Q (cfs)')
+
+ggplot(q2_ind, aes(x = Date, y = q_in))+
+  geom_line()+
+  ylab('Q (in/day)')
 
 # site_no3
 ggplot(q3, aes(x = Date, y = q_cfs)) + 
   geom_line() + 
   ylab('Q (cfs)')
 
+ggplot(q3_ind, aes(x = Date, y = q_in))+
+  geom_line()+
+  ylab('Q (in/day)')
+
 # control site
 ggplot(qC, aes(x = Date, y = q_cfs)) + 
   geom_line() + 
   ylab('Q (cfs)')
+
+ggplot(qC_ind, aes(x = Date, y = q_in))+
+  geom_line()+
+  ylab('Q (in/day)')
 ```
 
 ### Trending Month Mean, Min, and Median Data
@@ -60,75 +76,12 @@ ggplot(q_month_medians, aes(x = year, y = q_median))+
 ```
 
 
-## Specific Conductance Data
-
-### Plotted Data
-
-```{r}
-# Plot for specific conductance 
-ggplot(sc, aes(x = Date, y = sc_uscm)) + 
-  geom_point(size = 1) + 
-  geom_line(size = 0.5) +
-  labs(title = 'Specific Conductance USGS site 09034250',
-       caption = 'Specific Conductance data from USGS site 09034250 from 2021-06-24 to 2021-09-30',
-       x = 'Date',
-       y = 'SC (uS/cm)')
-
-ggplot(sc2, aes(x = Date, y = sc_uscm)) + 
-  geom_point(size = 1) + 
-  geom_line(size = 0.5) +
-   labs(title = 'Specific Conductance USGS site 09040500',
-       caption = 'Specific Conductance data from USGS site 09040500 from 2021-06-08 to 2021-09-30',
-       x = 'Date',
-       y = 'SC (uS/cm)')
-
-ggplot(sc3, aes(x = Date, y = sc_uscm)) + 
-  geom_point(size = 1) + 
-  geom_line(size = 0.5) +
-   labs(title = 'Specific Conductance USGS site 09014050',
-       caption = 'Specific Conductance data from USGS site 09014050 from 2011-09-30 to 2021-09-30',
-       x = 'Year',
-       y = 'SC (uS/cm)')
-
-
-```
-
-### Trending Months Mean, Min, and Median Data 
-
-```{r}
-ggplot(sc3_month_means, aes(x = year, y = sc3_mean))+
-  geom_point()+
-  facet_wrap(~month, scales ='free',)+
-  scale_y_log10()+
-  labs(title = 'Monthly Mean Specific Conductance USGS site 09014050',
-       caption = 'Mean Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
-       x = 'Years',
-       y = 'SC (uS/cm)')
-
-ggplot(sc3_month_min, aes(x = year, y = sc3_min))+
-  geom_point()+
-  facet_wrap(~month, scales ='free',)+
-  scale_y_log10()+
-  labs(title = 'Monthly Min Specific Conductance USGS site 09014050',
-       caption = 'Minimum Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
-       x = 'Years',
-       y = 'SC (uS/cm)')
-
-ggplot(sc3_month_median, aes(x = year, y = sc3_median))+
-  geom_point()+
-  facet_wrap(~month, scales ='free',)+
-  scale_y_log10()+
-  labs(title = 'Monthly Median Specific Conductance USGS site 09014050',
-       caption = 'Median Specific Conductance for January (1) to December (12) from 2011-09-30 to 2021-09-30',
-       x = 'Years',
-       y = 'SC (uS/cm)')
-```
 
 ## Turbidity
 
 ```{r}
 # site 1
-ggplot(Turbidity_1, aes(x = Date, y = mean_T1)) + 
+ggplot(Turbidity_1, aes(x = Date, y = mean)) + 
   geom_line(size = 1) + 
   labs(title = 'Turbidity USGS site 09034250',
        caption = 'Turbidity data from USGS site 09034250 from 2021-06-22 to 2021-10-01',
@@ -136,7 +89,7 @@ ggplot(Turbidity_1, aes(x = Date, y = mean_T1)) +
        y = 'T (formazin nephelometric units (FNU))')
 
 # site 2
-ggplot(Turbidity_2, aes(x = Date, y = mean_T2)) + 
+ggplot(Turbidity_2, aes(x = Date, y = mean)) + 
   geom_line(size = 1) + 
   labs(title = 'Turbidity USGS site 09040500',
        caption = 'Turbidity data from USGS site 09040500 from 2021-06-07 to 2021-10-01',
@@ -144,7 +97,7 @@ ggplot(Turbidity_2, aes(x = Date, y = mean_T2)) +
        y = 'T (formazin nephelometric units (FNU))')
 
 # site 3
-ggplot(Turbidity_3, aes(x = Date, y = mean_T3)) + 
+ggplot(Turbidity_3, aes(x = Date, y = mean)) + 
   geom_line(size = 1) + 
   labs(title = 'Turbidity USGS site 09014050',
        caption = 'Turbidity data from USGS site 09014050 from 2010-04-13 to 2021-10-01',
@@ -152,7 +105,7 @@ ggplot(Turbidity_3, aes(x = Date, y = mean_T3)) +
        y = 'T (formazin nephelometric units (FNU))')
 
 #control site
-ggplot(Turbidity_C, aes(x = Date, y = mean_T3)) + 
+ggplot(Turbidity_C, aes(x = Date, y = mean)) + 
   geom_line(size = 1) + 
   labs(title = 'Turbidity USGS site 09060799',
        caption = 'Turbidity data from USGS site 09060799 from 2021-07-15 to 	
@@ -161,11 +114,23 @@ ggplot(Turbidity_C, aes(x = Date, y = mean_T3)) +
        y = 'T (formazin nephelometric units (FNU))')
 ```
 
-## Comnined Data
+## Combined Data
 
 #### Discharge
 
 ```{r}
 ggplot(Q_c, aes(x= site_no, y= q_cfs))+
-  geom_boxplot()
+  geom_boxplot()+
+  scale_y_log10()
+```
+
+### Turbidity
+
+```{r}
+ggplot(T_c, aes(x= site_no, y= mean))+
+  geom_boxplot()+
+  scale_y_log10()+
+  labs(title = "Site Locations Turbidity",
+       x = "Site",
+       y = "Turbidity formazin nephelometric units (FNU)")
 ```
