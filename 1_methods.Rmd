@@ -7,6 +7,7 @@ library(lubridate)
 library(sf)
 library(nhdplusTools)
 library(mapview)
+library(forcats)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -25,7 +26,7 @@ site_no <- "09034250"
 site_no2 <- "09040500"
 site_no3 <- "09014050"
 
-control_site <- "09085000"
+control_site <- "09027100"
 ```
 
 ## Downloaded Discharge Data
@@ -53,7 +54,7 @@ q2 <- readNWISdv(siteNumbers = site_no2,
   addWaterYear(.) %>%
   select(-agency_cd, -X_00060_00003_cd)
 
-q2_ind <- q %>%
+q2_ind <- q2 %>%
   mutate(q_in = (((q_cfs / (4.684*10^9))*3600)*12)*24 )
 
 # site_no3
@@ -65,8 +66,8 @@ q3 <- readNWISdv(siteNumbers = site_no3,
   addWaterYear(.) %>%
   select(-agency_cd, -X_00060_00003_cd)
 
-q3_ind <- q %>%
-  mutate(q_in = (((q_cfs / (4.684*10^9))*3600)*12)*24 )
+q3_ind <- q3 %>%
+  mutate(q_in = (((q_cfs / (2.311*10^10))*3600)*12)*24 )
 
 # control site
 qC <- readNWISdv(siteNumbers = control_site,
@@ -77,39 +78,8 @@ qC <- readNWISdv(siteNumbers = control_site,
   addWaterYear(.) %>%
   select(-agency_cd, -X_00060_00003_cd)
 
-qC_ind <- q %>%
-  mutate(q_in = (((q_cfs / (4.0424*10^10))*3600)*12)*24 )
-```
-
-
-### Mean Monthly Discharge site 09034250
-```{r}
-q_month_means <- q%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(q_mean = mean(q_cfs, na.rm=T))
-
-```
-
-### Min Monthly Discharge site 09034250
-```{r}
-q_month_mins <- q%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(q_min = min(q_cfs))
-
-```
-
-### Median Monthly Discharge site 09034250
-```{r}
-q_month_medians <- q%>%
-  mutate(month = month(Date),
-         year = year(Date))%>%
-  group_by(year, month)%>%
-  summarize(q_median = median(q_cfs))
-
+qC_ind <- qC %>%
+  mutate(q_in = (((q_cfs / (3.206*10^9))*3600)*12)*24 )
 ```
 
 
@@ -143,7 +113,9 @@ Turbidity_2 <- read_csv('data/T2maddy.csv')%>%
   rename( Date = date)
 
 # site 3 daily turbidity
-T3 <- readNWISuv(siteNumbers = site_no3,
+
+# longer dated data
+T3_l <- readNWISuv(siteNumbers = site_no3,
                 parameterCd = '63680')%>%
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
@@ -151,10 +123,19 @@ T3 <- readNWISuv(siteNumbers = site_no3,
   summarize(mean = mean(X_63680_00000))
 
 
-write_csv(T3,'data/T3maddy.csv')
+write_csv(T3_l,'data/T3lmaddy.csv')
 
-Turbidity_3 <- read_csv('data/T3maddy.csv')%>%
+Turbidity_3l <- read_csv('data/T3lmaddy.csv')%>%
   rename( Date = date)
+
+# compressed dated data
+T3_s <- with(T3_l, T3_l[(date >= "2021-06-07" & date <= "2021-10-01"), ])
+
+write_csv(T3_s,'data/T3smaddy.csv')
+
+Turbidity_3s <- read_csv('data/T3smaddy.csv')%>%
+  rename( Date = date)
+
 
 # control site daily turbidity
 TC <- readNWISuv(siteNumbers = control_site,
@@ -177,14 +158,34 @@ Turbidity_C <- read_csv('data/TCmaddy.csv')%>%
 ### Discharge
 
 ```{r}
-Q_c <- rbind(q_ind,q2_ind,q3_ind,qC_ind)
+Q_c <- rbind(q_ind, q2_ind, q3_ind, qC_ind)
+
+Q_cr <-Q_c 
+
+Q_cr$site_no <- fct_recode(Q_cr$site_no ,
+                                 "Low Burn 1" = "09014050",
+                                 "Low Burn 2" = "09034250",
+                                 "High Burn" = "09040500",
+                                 "No Burn" = "09027100")
+
+colnames(Q_cr)[1] <- "BurnLevel"
 
 ```
 
 ### Turbidity
 
 ```{r}
-T_c <- rbind(Turbidity_1, Turbidity_2, Turbidity_3, Turbidity_C)
+T_c <- rbind(Turbidity_1, Turbidity_2, Turbidity_3s, Turbidity_C)
+
+T_cr <- T_c 
+
+T_cr$site_no <- fct_recode(T_cr$site_no ,
+                                 "Low Burn 1" = "09014050",
+                                 "Low Burn 2" = "09034250",
+                                 "High Burn" = "09040500",
+                                 "No Burn" = "09027100")
+
+colnames(T_cr)[1] <- "BurnLevel"
 ```
 
 ## Site Discription
@@ -205,7 +206,7 @@ watershed_2 <- st_read('Troublesome.geojson')%>%
 
 mapview(watershed_2)
 
-watershed_c <- st_read('Control.geojson')%>%
+watershed_c <- st_read('NewControl.geojson')%>%
   dplyr::filter(id=='globalwatershed')
 
 mapview(watershed_c)

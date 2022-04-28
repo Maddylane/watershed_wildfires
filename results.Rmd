@@ -3,79 +3,34 @@
 
 ## Discharge Data
 
-### Plotted Data
-
 ```{r}
 # Plot for discharge 
-ggplot(q, aes(x = Date, y = q_cfs)) + 
-  geom_line() + 
-  ylab('Q (cfs)')
-
 ggplot(q_ind, aes(x = Date, y = q_in))+
   geom_line()+
-  ylab('Q (in/day)')
+  labs( title = 'Discharge at Colorado River Gauge',
+        subtitle = 'USGS site 09034350',
+        x = 'Year',
+        y = 'Q (in/day)',
+        caption = 'Discharge (in/day) recorded from 1986-10-01 to 2022-01-01. Site is low burned and located near Grandby, CO.')
 
 # site_no2
-ggplot(q2, aes(x = Date, y = q_cfs)) + 
-  geom_line() + 
-  ylab('Q (cfs)')
-
 ggplot(q2_ind, aes(x = Date, y = q_in))+
   geom_line()+
-  ylab('Q (in/day)')
-
-# site_no3
-ggplot(q3, aes(x = Date, y = q_cfs)) + 
-  geom_line() + 
-  ylab('Q (cfs)')
-
-ggplot(q3_ind, aes(x = Date, y = q_in))+
-  geom_line()+
-  ylab('Q (in/day)')
+  labs( title = 'Discharge at Troublesome Creek Gauge',
+        subtitle = 'USGS site 09040500',
+        x = 'Year',
+        y = 'Q (in/day)',
+        caption = 'Discharge (in/day) recorded from 2021-05-27 to 2021-12-09. Site is a high burn and is located near Grandby, CO.')
 
 # control site
-ggplot(qC, aes(x = Date, y = q_cfs)) + 
-  geom_line() + 
-  ylab('Q (cfs)')
-
 ggplot(qC_ind, aes(x = Date, y = q_in))+
   geom_line()+
-  ylab('Q (in/day)')
+  labs( title = 'Discharge at Fraser River Gauge',
+        subtitle = 'USGS site 09027100',
+        x = 'Year',
+        y = 'Q (in/day)',
+        caption = 'Discharge (in/day) recorded from 2011-05-01 to 2022-01-01. ISte is in a non burned area and is the control site.')
 ```
-
-### Trending Month Mean, Min, and Median Data
-
-```{r}
-ggplot(q_month_means, aes(x = year, y = q_mean))+
-  geom_point()+
-  facet_wrap(~month, scales ='free',)+
-  scale_y_log10()+
-  labs(title = 'Monthly Mean Dishcarge',
-       caption = 'Mean dishcarge for January (1) to December (12) from the year 1986 to 2021',
-       x = 'Q (cfs)',
-       y = 'Years')
-  
-
-ggplot(q_month_mins, aes(x = year, y = q_min))+
-  geom_point()+
-  facet_wrap(~month, scales ='free')+
-  scale_y_log10()+
-    labs(title = 'Monthly Minimum Discharge',
-       caption = 'Minimum dishcarge for January (1) to December (12) from the year 1986 to 2021',
-       x = 'Q (cfs)',
-       y = 'Years')
-
-ggplot(q_month_medians, aes(x = year, y = q_median))+
-  geom_point()+
-  facet_wrap(~month, scales ='free')+
-  scale_y_log10()+
-    labs(title = 'Monthly Median Discharge',
-       caption = 'Median dishcarge for January (1) to December (12) from the year 1986 to 2021',
-       x = 'Q (cfs)',
-       y = 'Years')
-```
-
-
 
 ## Turbidity
 
@@ -83,33 +38,36 @@ ggplot(q_month_medians, aes(x = year, y = q_median))+
 # site 1
 ggplot(Turbidity_1, aes(x = Date, y = mean)) + 
   geom_line(size = 1) + 
-  labs(title = 'Turbidity USGS site 09034250',
-       caption = 'Turbidity data from USGS site 09034250 from 2021-06-22 to 2021-10-01',
+  labs(title = 'Turbidity Levels Colorado River',
+       subtitle = 'USGS site 09034250',
+       caption = 'Turbidity data from USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO. Reccorded time 2021-06-22 to 2021-10-01. USGS gauge located in low burn area.',
        x = 'Date',
        y = 'T (formazin nephelometric units (FNU))')
 
 # site 2
 ggplot(Turbidity_2, aes(x = Date, y = mean)) + 
   geom_line(size = 1) + 
-  labs(title = 'Turbidity USGS site 09040500',
-       caption = 'Turbidity data from USGS site 09040500 from 2021-06-07 to 2021-10-01',
+  labs(title = 'Turbidity Levels Troublesom Creek',
+       subtitle = 'USGS site 09040500',
+       caption = 'Turbidity data from USGS site 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO. Reccorded time 2021-06-07 to 2021-10-01. USGS gauge located in high burn area.',
        x = 'Date',
        y = 'T (formazin nephelometric units (FNU))')
 
 # site 3
 ggplot(Turbidity_3, aes(x = Date, y = mean)) + 
-  geom_line(size = 1) + 
-  labs(title = 'Turbidity USGS site 09014050',
-       caption = 'Turbidity data from USGS site 09014050 from 2010-04-13 to 2021-10-01',
+  geom_point(size = 1) + 
+  labs(title = 'Turbidity Levels Grand Lake Outlet',
+       subtitle = 'USGS site 09014050',
+       caption = 'Turbidity data from USGS site 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO. Recorded time from 2010-04-13 to 2021-10-01. USGS gauge located in low burn area.',
        x = 'Date',
        y = 'T (formazin nephelometric units (FNU))')
 
 #control site
 ggplot(Turbidity_C, aes(x = Date, y = mean)) + 
-  geom_line(size = 1) + 
-  labs(title = 'Turbidity USGS site 09060799',
-       caption = 'Turbidity data from USGS site 09060799 from 2021-07-15 to 	
-2022-04-07',
+  geom_point(size = 1) + 
+  labs(title = 'Turbidity Levels Fraser River',
+       subtitle = 'USGS site 09070500',
+       caption = 'Turbidity data from USGS site 09060799 FRASER RIVER AT TABERNASH, CO. Recorded time from 2021-07-15 to 2022-04-07. USGS gauge loctaed in no burn (contro site)',
        x = 'Date',
        y = 'T (formazin nephelometric units (FNU))')
 ```
@@ -119,18 +77,26 @@ ggplot(Turbidity_C, aes(x = Date, y = mean)) +
 #### Discharge
 
 ```{r}
-ggplot(Q_c, aes(x= site_no, y= q_cfs))+
+ggplot(Q_cr, aes(x= BurnLevel, y= q_in))+
   geom_boxplot()+
-  scale_y_log10()
+  scale_y_log10()+
+  labs( title = 'Discharge of Sites',
+        x = ' Site Burn Level',
+        y = 'Q (in/day)',
+        caption = 'Discharge (in/day) from Troublesome Creek (high burn), Colorado River (low burn), and Fraser River (no burn)')
+
 ```
 
 ### Turbidity
 
 ```{r}
-ggplot(T_c, aes(x= site_no, y= mean))+
-  geom_boxplot()+
+ggplot(T_cr, aes(x= Date, y= mean, color = BurnLevel ))+
+  geom_point()+
+  geom_line()+
   scale_y_log10()+
-  labs(title = "Site Locations Turbidity",
-       x = "Site",
-       y = "Turbidity formazin nephelometric units (FNU)")
+  labs(title = "Turbidity Levels at Four Sites",
+       x = "Month",
+       y = "Turbidity (FNU)")
 ```
+
+
