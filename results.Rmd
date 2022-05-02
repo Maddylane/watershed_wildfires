@@ -12,7 +12,9 @@ ggplot(q_ind, aes(x = Date, y = q_in))+
         x = 'Year',
         y = 'Q (in/day)',
         caption = 'Discharge (in/day) recorded from 1986-10-01 to 2022-01-01. Site is low burned and located near Grandby, CO.')
-
+```
+The plot above represents the Discharge (Q) levels measured in in/day at the USGS site 09034350 located at the Colorado River at Windy Gap, near Grandby, CO. Due to the location of the fire this site is considered to be in a low burned area. As seen in the figure Q was at a higher level just before the fire in 2010 to 2011, Then around the time of the fire in 2012 the discharge levels became very low   
+```{r}
 # site_no2
 ggplot(q2_ind, aes(x = Date, y = q_in))+
   geom_line()+
@@ -55,7 +57,7 @@ ggplot(Turbidity_2, aes(x = Date, y = mean)) +
 
 # site 3
 ggplot(Turbidity_3, aes(x = Date, y = mean)) + 
-  geom_point(size = 1) + 
+  geom_line(size = 1) + 
   labs(title = 'Turbidity Levels Grand Lake Outlet',
        subtitle = 'USGS site 09014050',
        caption = 'Turbidity data from USGS site 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO. Recorded time from 2010-04-13 to 2021-10-01. USGS gauge located in low burn area.',
@@ -64,7 +66,7 @@ ggplot(Turbidity_3, aes(x = Date, y = mean)) +
 
 #control site
 ggplot(Turbidity_C, aes(x = Date, y = mean)) + 
-  geom_point(size = 1) + 
+  geom_line(size = 1) + 
   labs(title = 'Turbidity Levels Fraser River',
        subtitle = 'USGS site 09070500',
        caption = 'Turbidity data from USGS site 09060799 FRASER RIVER AT TABERNASH, CO. Recorded time from 2021-07-15 to 2022-04-07. USGS gauge loctaed in no burn (contro site)',

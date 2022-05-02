@@ -14,9 +14,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Methods
 
-Downloaded data from USGS site number 09014050 that is at the Grand lake outlet that was affected by the East Troublesome Fire.
-Downloaded data from USGS site number 09034250 that is along troublesome creek and the Colorado river that was affected by the East Troublesome Fire.
-Downloaded data from USGS site number 09040500 that is along the Colorado River that was affected by the East Troublesome Fire.
+Downloaded turbidity from USGS site number 09014050 that is at the Grand lake outlet that was affected by the East Troublesome Fire at a low burn location.
+Downloaded discharge and turbidity from USGS site number 09034250 that is along troublesome creek and outlets into the Colorado river that was affected by the East Troublesome Fire in a high burn area.
+Downloaded discharge and turbidity from USGS site number 09040500 that is along the Colorado River that was affected by the East Troublesome Fire in a low burn area.
+Downloaded discharge and turbidity from USGS site number 09027100 that is along the Fraser river that wass not affected by East Troublesome Fire in a non burn area
 
 
 ## USGS Sites
@@ -158,13 +159,12 @@ Turbidity_C <- read_csv('data/TCmaddy.csv')%>%
 ### Discharge
 
 ```{r}
-Q_c <- rbind(q_ind, q2_ind, q3_ind, qC_ind)
+Q_c <- rbind(q_ind, q2_ind, qC_ind)
 
 Q_cr <-Q_c 
 
 Q_cr$site_no <- fct_recode(Q_cr$site_no ,
-                                 "Low Burn 1" = "09014050",
-                                 "Low Burn 2" = "09034250",
+                                 "Low Burn " = "09034250",
                                  "High Burn" = "09040500",
                                  "No Burn" = "09027100")
 
@@ -190,9 +190,10 @@ colnames(T_cr)[1] <- "BurnLevel"
 
 ## Site Discription
 
-USGS 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO
-USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.
-USGS 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO.
+Low Burn - USGS 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO
+Low Burn - USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.
+High Burn - USGS 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO.
+Not Burned - USGS 09027100 FRASER RIVER AT TABERNASH, CO
 
 ### Deliniated Watershed
 ```{r}
@@ -200,15 +201,19 @@ watershed <- st_read('Granby.geojson')%>%
   dplyr::filter(id=='globalwatershed')
 
 mapview(watershed)
-
+```
+Watershed of the sites 09014050 located at Grand Lake Outlet and 09034250 located at the Colorado River at Windy Gap. Both site are considered a low burn gauge.
+```{r}
 watershed_2 <- st_read('Troublesome.geojson')%>%
   dplyr::filter(id=='globalwatershed')
 
 mapview(watershed_2)
-
+```
+Watershed of site 09040500 located at Troublesome creek. This site is considered a high burn gauge.  
+```{r}
 watershed_c <- st_read('NewControl.geojson')%>%
   dplyr::filter(id=='globalwatershed')
 
 mapview(watershed_c)
 ```
-
+Watershed of site 09027100 located at Fraser River. This site is considered a non burned gauge and is the control site.
