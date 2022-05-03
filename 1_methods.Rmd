@@ -8,7 +8,14 @@ library(sf)
 library(nhdplusTools)
 library(mapview)
 library(forcats)
+library(ggplot2)
+library(dplyr)
+library(bookdown)
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.cap = "")
+knitr::opts_chunk$set(show_col_types = FALSE)
 ```
 
 
@@ -88,29 +95,45 @@ qC_ind <- qC %>%
 
 ```{r}
 # site 1 daily turbidity 
-T1 <- readNWISuv(siteNumbers = site_no,
+T1_l <- readNWISuv(siteNumbers = site_no,
                 parameterCd = '63680')%>%
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
   group_by(site_no, date)%>%
   summarize(mean = mean(X_63680_00000))
 
-write_csv(T1,'data/T1maddy.csv')
+write_csv(T1_l,'data/T1maddy.csv')
 
 Turbidity_1 <- read_csv('data/T1maddy.csv')%>%
   rename( Date = date)
 
+# compressed dated data
+T1_s <- with(T1_l, T1_l[(date >= "2021-06-07" & date <= "2021-10-01"), ])
+
+write_csv(T1_s,'data/T1smaddy.csv')
+
+Turbidity_1s <- read_csv('data/T1smaddy.csv')%>%
+  rename( Date = date)
+
 # site 2 daily turbidity 
-T2 <- readNWISuv(siteNumbers = site_no2,
+T2_l <- readNWISuv(siteNumbers = site_no2,
                 parameterCd = '63680')%>%
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
   group_by(site_no, date)%>%
   summarize(mean = mean(X_63680_00000))
 
-write_csv(T2,'data/T2maddy.csv')
+write_csv(T2_l,'data/T2maddy.csv')
 
 Turbidity_2 <- read_csv('data/T2maddy.csv')%>%
+  rename( Date = date)
+
+# compressed dated data
+T2_s <- with(T2_l, T2_l[(date >= "2021-06-07" & date <= "2021-10-01"), ])
+
+write_csv(T2_s,'data/T2smaddy.csv')
+
+Turbidity_2s <- read_csv('data/T2smaddy.csv')%>%
   rename( Date = date)
 
 # site 3 daily turbidity
@@ -139,7 +162,7 @@ Turbidity_3s <- read_csv('data/T3smaddy.csv')%>%
 
 
 # control site daily turbidity
-TC <- readNWISuv(siteNumbers = control_site,
+TC_l <- readNWISuv(siteNumbers = control_site,
                 parameterCd = '63680')%>%
   mutate(dateTime = lubridate::as_datetime(dateTime),
          date = lubridate::as_date(dateTime))%>%
@@ -147,9 +170,17 @@ TC <- readNWISuv(siteNumbers = control_site,
   summarize(mean = mean(X_63680_00000))
 
 
-write_csv(TC,'data/TCmaddy.csv')
+write_csv(TC_l,'data/TCmaddy.csv')
 
 Turbidity_C <- read_csv('data/TCmaddy.csv')%>%
+  rename( Date = date)
+
+# compressed dated data
+TC_s <- with(TC_l, TC_l[(date >= "2021-06-07" & date <= "2021-10-01"), ])
+
+write_csv(TC_s,'data/TCsmaddy.csv')
+
+Turbidity_Cs <- read_csv('data/TCsmaddy.csv')%>%
   rename( Date = date)
 
 ```
@@ -175,7 +206,7 @@ colnames(Q_cr)[1] <- "BurnLevel"
 ### Turbidity
 
 ```{r}
-T_c <- rbind(Turbidity_1, Turbidity_2, Turbidity_3s, Turbidity_C)
+T_c <- rbind(Turbidity_1s, Turbidity_2s, Turbidity_3s, Turbidity_Cs)
 
 T_cr <- T_c 
 
@@ -186,6 +217,7 @@ T_cr$site_no <- fct_recode(T_cr$site_no ,
                                  "No Burn" = "09027100")
 
 colnames(T_cr)[1] <- "BurnLevel"
+
 ```
 
 ## Site Discription

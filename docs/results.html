@@ -62,18 +62,12 @@
 <script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
-<script src="libs/FlatGeoBuf-3.3.3/fgb.js"></script>
-<script src="libs/FlatGeoBuf-3.3.3/flatgeobuf-geojson.min.js"></script>
-<script src="libs/chromajs-2.1.0/chroma.min.js"></script>
-<link id="watershed-1-attachment" rel="attachment" href="libs/watershed-0.0.1/watershed_layer.fgb"/>
 <link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
 <script src="libs/HomeButton-0.0.1/home-button.js"></script>
 <script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
 <link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
-<link id="watershed_2-1-attachment" rel="attachment" href="libs/watershed_2-0.0.1/watershed_2_layer.fgb"/>
-<link id="watershed_c-1-attachment" rel="attachment" href="libs/watershed_c-0.0.1/watershed_c_layer.fgb"/>
 
 
 <style type="text/css">
@@ -180,12 +174,7 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="methods.html"><a href="methods.html#usgs-sites"><i class="fa fa-check"></i><b>2.1</b> USGS Sites</a></li>
-<li class="chapter" data-level="2.2" data-path="methods.html"><a href="methods.html#downloaded-discharge-data"><i class="fa fa-check"></i><b>2.2</b> Downloaded Discharge Data</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="methods.html"><a href="methods.html#mean-monthly-discharge-site-09034250"><i class="fa fa-check"></i><b>2.2.1</b> Mean Monthly Discharge site 09034250</a></li>
-<li class="chapter" data-level="2.2.2" data-path="methods.html"><a href="methods.html#min-monthly-discharge-site-09034250"><i class="fa fa-check"></i><b>2.2.2</b> Min Monthly Discharge site 09034250</a></li>
-<li class="chapter" data-level="2.2.3" data-path="methods.html"><a href="methods.html#median-monthly-discharge-site-09034250"><i class="fa fa-check"></i><b>2.2.3</b> Median Monthly Discharge site 09034250</a></li>
-</ul></li>
+<li class="chapter" data-level="2.2" data-path="methods.html"><a href="methods.html#downloaded-discharge-data"><i class="fa fa-check"></i><b>2.2</b> Downloaded Discharge Data</a></li>
 <li class="chapter" data-level="2.3" data-path="methods.html"><a href="methods.html#turbidity"><i class="fa fa-check"></i><b>2.3</b> Turbidity</a></li>
 <li class="chapter" data-level="2.4" data-path="methods.html"><a href="methods.html#combined-data"><i class="fa fa-check"></i><b>2.4</b> Combined Data</a>
 <ul>
@@ -199,11 +188,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="results.html"><a href="results.html#discharge-data"><i class="fa fa-check"></i><b>3.1</b> Discharge Data</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="results.html"><a href="results.html#plotted-data"><i class="fa fa-check"></i><b>3.1.1</b> Plotted Data</a></li>
-<li class="chapter" data-level="3.1.2" data-path="results.html"><a href="results.html#trending-month-mean-min-and-median-data"><i class="fa fa-check"></i><b>3.1.2</b> Trending Month Mean, Min, and Median Data</a></li>
-</ul></li>
+<li class="chapter" data-level="3.1" data-path="results.html"><a href="results.html#discharge-data"><i class="fa fa-check"></i><b>3.1</b> Discharge Data</a></li>
 <li class="chapter" data-level="3.2" data-path="results.html"><a href="results.html#turbidity-2"><i class="fa fa-check"></i><b>3.2</b> Turbidity</a></li>
 <li class="chapter" data-level="3.3" data-path="results.html"><a href="results.html#combined-data-1"><i class="fa fa-check"></i><b>3.3</b> Combined Data</a>
 <ul>
@@ -211,6 +196,7 @@ div.csl-indent {
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
 </ul>
 
       </nav>
@@ -232,141 +218,136 @@ div.csl-indent {
 <h1><span class="header-section-number">3</span> Results</h1>
 <div id="discharge-data" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Discharge Data</h2>
-<div id="plotted-data" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Plotted Data</h3>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="results.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot for discharge </span></span>
-<span id="cb36-2"><a href="results.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_cfs)) <span class="sc">+</span> </span>
-<span id="cb36-3"><a href="results.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb36-4"><a href="results.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (cfs)&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 38 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="results.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q_ind, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_in))<span class="sc">+</span></span>
-<span id="cb38-2"><a href="results.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb38-3"><a href="results.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (in/day)&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 38 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="results.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site_no2</span></span>
-<span id="cb40-2"><a href="results.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_cfs)) <span class="sc">+</span> </span>
-<span id="cb40-3"><a href="results.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb40-4"><a href="results.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (cfs)&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 23 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="results.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2_ind, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_in))<span class="sc">+</span></span>
-<span id="cb42-2"><a href="results.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb42-3"><a href="results.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (in/day)&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 38 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="results.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site_no3</span></span>
-<span id="cb44-2"><a href="results.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q3, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_cfs)) <span class="sc">+</span> </span>
-<span id="cb44-3"><a href="results.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb44-4"><a href="results.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (cfs)&#39;</span>)</span></code></pre></div>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-5.png" width="672" /></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="results.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q3_ind, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_in))<span class="sc">+</span></span>
-<span id="cb45-2"><a href="results.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb45-3"><a href="results.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (in/day)&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 38 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-6.png" width="672" /></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="results.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># control site</span></span>
-<span id="cb47-2"><a href="results.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(qC, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_cfs)) <span class="sc">+</span> </span>
-<span id="cb47-3"><a href="results.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb47-4"><a href="results.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (cfs)&#39;</span>)</span></code></pre></div>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-7.png" width="672" /></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="results.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(qC_ind, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_in))<span class="sc">+</span></span>
-<span id="cb48-2"><a href="results.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb48-3"><a href="results.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Q (in/day)&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 38 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-10-8.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="results.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot for discharge </span></span>
+<span id="cb15-2"><a href="results.html#cb15-2" aria-hidden="true" tabindex="-1"></a>{ q1 <span class="ot">=</span> <span class="st">&quot;Discharge (in/day) recorded from 1986-10-01 to 2022-01-01. Site is low burned and located near Grandby, CO.&quot;</span>}</span>
+<span id="cb15-3"><a href="results.html#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="results.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q_ind, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_in))<span class="sc">+</span></span>
+<span id="cb15-5"><a href="results.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb15-6"><a href="results.html#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&#39;Discharge at Colorado River Gauge&#39;</span>,</span>
+<span id="cb15-7"><a href="results.html#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">&#39;USGS site 09034350&#39;</span>,</span>
+<span id="cb15-8"><a href="results.html#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&#39;Year&#39;</span>,</span>
+<span id="cb15-9"><a href="results.html#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&#39;Q (in/day)&#39;</span> )</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-9-1.png" alt="Discharge (in/day) recorded from 1986-10-01 to 2022-01-01. Site is low burned and located near Grandby, CO." width="672" />
+<p class="caption">
+Figure 3.1: Discharge (in/day) recorded from 1986-10-01 to 2022-01-01. Site is low burned and located near Grandby, CO.
+</p>
 </div>
-<div id="trending-month-mean-min-and-median-data" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Trending Month Mean, Min, and Median Data</h3>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="results.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q_month_means, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> q_mean))<span class="sc">+</span></span>
-<span id="cb50-2"><a href="results.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb50-3"><a href="results.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>month, <span class="at">scales =</span><span class="st">&#39;free&#39;</span>,)<span class="sc">+</span></span>
-<span id="cb50-4"><a href="results.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
-<span id="cb50-5"><a href="results.html#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Monthly Mean Dishcarge&#39;</span>,</span>
-<span id="cb50-6"><a href="results.html#cb50-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;Mean dishcarge for January (1) to December (12) from the year 1986 to 2021&#39;</span>,</span>
-<span id="cb50-7"><a href="results.html#cb50-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Q (cfs)&#39;</span>,</span>
-<span id="cb50-8"><a href="results.html#cb50-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Years&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="results.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q_month_mins, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> q_min))<span class="sc">+</span></span>
-<span id="cb52-2"><a href="results.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb52-3"><a href="results.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>month, <span class="at">scales =</span><span class="st">&#39;free&#39;</span>)<span class="sc">+</span></span>
-<span id="cb52-4"><a href="results.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
-<span id="cb52-5"><a href="results.html#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Monthly Minimum Discharge&#39;</span>,</span>
-<span id="cb52-6"><a href="results.html#cb52-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;Minimum dishcarge for January (1) to December (12) from the year 1986 to 2021&#39;</span>,</span>
-<span id="cb52-7"><a href="results.html#cb52-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Q (cfs)&#39;</span>,</span>
-<span id="cb52-8"><a href="results.html#cb52-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Years&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="results.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q_month_medians, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> q_median))<span class="sc">+</span></span>
-<span id="cb54-2"><a href="results.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb54-3"><a href="results.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>month, <span class="at">scales =</span><span class="st">&#39;free&#39;</span>)<span class="sc">+</span></span>
-<span id="cb54-4"><a href="results.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
-<span id="cb54-5"><a href="results.html#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Monthly Median Discharge&#39;</span>,</span>
-<span id="cb54-6"><a href="results.html#cb54-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;Median dishcarge for January (1) to December (12) from the year 1986 to 2021&#39;</span>,</span>
-<span id="cb54-7"><a href="results.html#cb54-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Q (cfs)&#39;</span>,</span>
-<span id="cb54-8"><a href="results.html#cb54-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Years&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
+<p>The plot above represents the Discharge (Q) levels measured in in/day at the USGS site 09034350 located at the Colorado River at Windy Gap, near Grandby, CO. Due to the location of the fire this site is considered to be in a low burned area. As seen in the figure Q was at a higher level just before the fire in 2010 to 2011, Then around the time of the fire in 2012 the discharge levels became very low</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="results.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site_no2</span></span>
+<span id="cb16-2"><a href="results.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2_ind, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_in))<span class="sc">+</span></span>
+<span id="cb16-3"><a href="results.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb16-4"><a href="results.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&#39;Discharge at Troublesome Creek Gauge&#39;</span>,</span>
+<span id="cb16-5"><a href="results.html#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">&#39;USGS site 09040500&#39;</span>,</span>
+<span id="cb16-6"><a href="results.html#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&#39;Year&#39;</span>,</span>
+<span id="cb16-7"><a href="results.html#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&#39;Q (in/day)&#39;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-10-1.png" alt="Discharge (in/day) recorded from 2021-05-27 to 2021-12-09. Site is a high burn and is located near Grandby, CO." width="672" />
+<p class="caption">
+Figure 3.2: Discharge (in/day) recorded from 2021-05-27 to 2021-12-09. Site is a high burn and is located near Grandby, CO.
+</p>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="results.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># control site</span></span>
+<span id="cb17-2"><a href="results.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(qC_ind, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> q_in))<span class="sc">+</span></span>
+<span id="cb17-3"><a href="results.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb17-4"><a href="results.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&#39;Discharge at Fraser River Gauge&#39;</span>,</span>
+<span id="cb17-5"><a href="results.html#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">&#39;USGS site 09027100&#39;</span>,</span>
+<span id="cb17-6"><a href="results.html#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&#39;Year&#39;</span>,</span>
+<span id="cb17-7"><a href="results.html#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&#39;Q (in/day)&#39;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-11"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-11-1.png" alt="Discharge (in/day) recorded from 2011-05-01 to 2022-01-01. ISte is in a non burned area and is the control site." width="672" />
+<p class="caption">
+Figure 3.3: Discharge (in/day) recorded from 2011-05-01 to 2022-01-01. ISte is in a non burned area and is the control site.
+</p>
 </div>
 </div>
 <div id="turbidity-2" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Turbidity</h2>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="results.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site 1</span></span>
-<span id="cb56-2"><a href="results.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_1, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
-<span id="cb56-3"><a href="results.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb56-4"><a href="results.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity USGS site 09034250&#39;</span>,</span>
-<span id="cb56-5"><a href="results.html#cb56-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;Turbidity data from USGS site 09034250 from 2021-06-22 to 2021-10-01&#39;</span>,</span>
-<span id="cb56-6"><a href="results.html#cb56-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
-<span id="cb56-7"><a href="results.html#cb56-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="results.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site 2</span></span>
-<span id="cb57-2"><a href="results.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_2, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
-<span id="cb57-3"><a href="results.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb57-4"><a href="results.html#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity USGS site 09040500&#39;</span>,</span>
-<span id="cb57-5"><a href="results.html#cb57-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;Turbidity data from USGS site 09040500 from 2021-06-07 to 2021-10-01&#39;</span>,</span>
-<span id="cb57-6"><a href="results.html#cb57-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
-<span id="cb57-7"><a href="results.html#cb57-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="results.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site 3</span></span>
-<span id="cb58-2"><a href="results.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_3, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
-<span id="cb58-3"><a href="results.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb58-4"><a href="results.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity USGS site 09014050&#39;</span>,</span>
-<span id="cb58-5"><a href="results.html#cb58-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;Turbidity data from USGS site 09014050 from 2010-04-13 to 2021-10-01&#39;</span>,</span>
-<span id="cb58-6"><a href="results.html#cb58-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
-<span id="cb58-7"><a href="results.html#cb58-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="results.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#control site</span></span>
-<span id="cb59-2"><a href="results.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_C, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
-<span id="cb59-3"><a href="results.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb59-4"><a href="results.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity USGS site 09060799&#39;</span>,</span>
-<span id="cb59-5"><a href="results.html#cb59-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;Turbidity data from USGS site 09060799 from 2021-07-15 to     </span></span>
-<span id="cb59-6"><a href="results.html#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="st">2022-04-07&#39;</span>,</span>
-<span id="cb59-7"><a href="results.html#cb59-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
-<span id="cb59-8"><a href="results.html#cb59-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-12-4.png" width="672" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="results.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site 1</span></span>
+<span id="cb18-2"><a href="results.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_1s, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="results.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb18-4"><a href="results.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity Levels Colorado River&#39;</span>,</span>
+<span id="cb18-5"><a href="results.html#cb18-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&#39;USGS site 09034250&#39;</span>,</span>
+<span id="cb18-6"><a href="results.html#cb18-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
+<span id="cb18-7"><a href="results.html#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-12"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-12-1.png" alt="Turbidity data from USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO. Reccorded time 2021-06-22 to 2021-10-01. USGS gauge located in low burn area" width="672" />
+<p class="caption">
+Figure 3.4: Turbidity data from USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO. Reccorded time 2021-06-22 to 2021-10-01. USGS gauge located in low burn area
+</p>
+</div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="results.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site 2</span></span>
+<span id="cb19-2"><a href="results.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_2s, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
+<span id="cb19-3"><a href="results.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb19-4"><a href="results.html#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity Levels Troublesom Creek&#39;</span>,</span>
+<span id="cb19-5"><a href="results.html#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&#39;USGS site 09040500&#39;</span>,</span>
+<span id="cb19-6"><a href="results.html#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
+<span id="cb19-7"><a href="results.html#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-13"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-13-1.png" alt="Turbidity data from USGS site 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO. Reccorded time 2021-06-07 to 2021-10-01. USGS gauge located in high burn area." width="672" />
+<p class="caption">
+Figure 3.5: Turbidity data from USGS site 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO. Reccorded time 2021-06-07 to 2021-10-01. USGS gauge located in high burn area.
+</p>
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="results.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># site 3</span></span>
+<span id="cb20-2"><a href="results.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_3l, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
+<span id="cb20-3"><a href="results.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb20-4"><a href="results.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity Levels Grand Lake Outlet&#39;</span>,</span>
+<span id="cb20-5"><a href="results.html#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&#39;USGS site 09014050&#39;</span>,</span>
+<span id="cb20-6"><a href="results.html#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
+<span id="cb20-7"><a href="results.html#cb20-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-14-1.png" alt="Turbidity data from USGS site 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO. Recorded time from 2010-04-13 to 2021-10-01. USGS gauge located in low burn area." width="672" />
+<p class="caption">
+Figure 3.6: Turbidity data from USGS site 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO. Recorded time from 2010-04-13 to 2021-10-01. USGS gauge located in low burn area.
+</p>
+</div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="results.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#control site</span></span>
+<span id="cb21-2"><a href="results.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Turbidity_Cs, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
+<span id="cb21-3"><a href="results.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb21-4"><a href="results.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Turbidity Levels Fraser River&#39;</span>,</span>
+<span id="cb21-5"><a href="results.html#cb21-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&#39;USGS site 09070500&#39;</span>,</span>
+<span id="cb21-6"><a href="results.html#cb21-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Date&#39;</span>,</span>
+<span id="cb21-7"><a href="results.html#cb21-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;T (formazin nephelometric units (FNU))&#39;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-15"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-15-1.png" alt="Turbidity data from USGS site 09060799 FRASER RIVER AT TABERNASH, CO. Recorded time from 2021-07-15 to 2022-04-07. USGS gauge loctaed in no burn (contro site)" width="672" />
+<p class="caption">
+Figure 3.7: Turbidity data from USGS site 09060799 FRASER RIVER AT TABERNASH, CO. Recorded time from 2021-07-15 to 2022-04-07. USGS gauge loctaed in no burn (contro site)
+</p>
+</div>
 </div>
 <div id="combined-data-1" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Combined Data</h2>
 <div id="discharge-1" class="section level4" number="3.3.0.1">
 <h4><span class="header-section-number">3.3.0.1</span> Discharge</h4>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="results.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Q_c, <span class="fu">aes</span>(<span class="at">x=</span> site_no, <span class="at">y=</span> q_cfs))<span class="sc">+</span></span>
-<span id="cb60-2"><a href="results.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb60-3"><a href="results.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span></code></pre></div>
-<pre><code>## Warning: Removed 172 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="results.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Q_cr, <span class="fu">aes</span>(<span class="at">x=</span> BurnLevel, <span class="at">y=</span> q_in))<span class="sc">+</span></span>
+<span id="cb22-2"><a href="results.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb22-3"><a href="results.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
+<span id="cb22-4"><a href="results.html#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&#39;Discharge of Sites&#39;</span>,</span>
+<span id="cb22-5"><a href="results.html#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&#39; Site Burn Level&#39;</span>,</span>
+<span id="cb22-6"><a href="results.html#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&#39;Q (in/day)&#39;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-16"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-16-1.png" alt="Discharge (in/day) from Troublesome Creek (high burn), Colorado River (low burn), and Fraser River (no burn)" width="672" />
+<p class="caption">
+Figure 3.8: Discharge (in/day) from Troublesome Creek (high burn), Colorado River (low burn), and Fraser River (no burn)
+</p>
+</div>
 </div>
 <div id="turbidity-3" class="section level3" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Turbidity</h3>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="results.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(T_c, <span class="fu">aes</span>(<span class="at">x=</span> site_no, <span class="at">y=</span> mean))<span class="sc">+</span></span>
-<span id="cb62-2"><a href="results.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb62-3"><a href="results.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
-<span id="cb62-4"><a href="results.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Site Locations Turbidity&quot;</span>,</span>
-<span id="cb62-5"><a href="results.html#cb62-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Site&quot;</span>,</span>
-<span id="cb62-6"><a href="results.html#cb62-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Turbidity formazin nephelometric units (FNU)&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="Final-Project_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="results.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(T_cr, <span class="fu">aes</span>(<span class="at">x=</span> Date, <span class="at">y=</span> mean, <span class="at">color =</span> BurnLevel ))<span class="sc">+</span></span>
+<span id="cb23-2"><a href="results.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb23-3"><a href="results.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb23-4"><a href="results.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
+<span id="cb23-5"><a href="results.html#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Turbidity Levels at Four Sites&quot;</span>,</span>
+<span id="cb23-6"><a href="results.html#cb23-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Month&quot;</span>,</span>
+<span id="cb23-7"><a href="results.html#cb23-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Turbidity (FNU)&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<img src="Final-Project_files/figure-html/unnamed-chunk-17-1.png" alt="Turbidity levels from Troublesome Creek (high burn), Colorado River (low burn 2), Grand lake Outlet (low burn 1) and Fraser River (no burn" width="672" />
+<p class="caption">
+Figure 3.9: Turbidity levels from Troublesome Creek (high burn), Colorado River (low burn 2), Grand lake Outlet (low burn 1) and Fraser River (no burn
+</p>
+</div>
 
 </div>
 </div>
