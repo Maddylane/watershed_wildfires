@@ -11,6 +11,7 @@ library(forcats)
 library(ggplot2)
 library(dplyr)
 library(bookdown)
+
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
@@ -36,6 +37,7 @@ site_no3 <- "09014050"
 
 control_site <- "09027100"
 ```
+Site Numbers labeld to help pull data for each considered site.
 
 ## Downloaded Discharge Data
 
@@ -89,7 +91,7 @@ qC <- readNWISdv(siteNumbers = control_site,
 qC_ind <- qC %>%
   mutate(q_in = (((q_cfs / (3.206*10^9))*3600)*12)*24 )
 ```
-
+Code used to dowload dischrage from each site in cfs then covnverted in in/d.
 
 ## Turbidity 
 
@@ -184,6 +186,7 @@ Turbidity_Cs <- read_csv('data/TCsmaddy.csv')%>%
   rename( Date = date)
 
 ```
+Code downloaded continuous turbidity data, where it then converts the continuous data into daily data. After this code runs I then create a csv file of the daily data and then recall it to my data source. I aslo had to shorten collected dates on certain turbidity levels for combined figure 3.9 to show values during the same time after the fire.  
 
 ## Combined Data
 
@@ -202,6 +205,7 @@ Q_cr$site_no <- fct_recode(Q_cr$site_no ,
 colnames(Q_cr)[1] <- "BurnLevel"
 
 ```
+Code binds all needed data sets and then re codes the site_no column to rename the site numbers to burn level, and then I renamed the column name to BurnLevel.
 
 ### Turbidity
 
@@ -219,13 +223,11 @@ T_cr$site_no <- fct_recode(T_cr$site_no ,
 colnames(T_cr)[1] <- "BurnLevel"
 
 ```
+Code binds all needed data sets and then re codes the site_no column to rename the site numbers to burn level, and then I renamed the column name to BurnLevel.
 
 ## Site Discription
 
-Low Burn - USGS 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO
-Low Burn - USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.
-High Burn - USGS 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO.
-Not Burned - USGS 09027100 FRASER RIVER AT TABERNASH, CO
+[Low Burn: USGS 09014050 GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO] [Low Burn: USGS site 09034250 COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.] [High Burn: USGS 09040500 TROUBLESOME CREEK NEAR TROUBLESOME, CO.] [Not Burned: USGS 09027100 FRASER RIVER AT TABERNASH, CO]
 
 ### Deliniated Watershed
 ```{r}

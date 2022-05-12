@@ -1,9 +1,11 @@
 book_filename: "Final Project" 
 delete_merged_file: true
 rmd_files:
+  - "abstract.Rmd"
   - "index.Rmd"
   - "1_methods.Rmd"
   - "results.Rmd"
   - "discussion.Rmd"
+  - "conclusion.Rmd"
   - "wrapping_up.Rmd"
 output_dir: "docs"
