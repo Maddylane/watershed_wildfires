@@ -10,7 +10,6 @@ bibliography: citations.bib
 fig_caption: yes
 ---
 
-# Introduction 
 
 ```{r setup, include=FALSE}
 library(here)
