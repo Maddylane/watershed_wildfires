@@ -1,4 +1,36 @@
+---
+title: "East Troublesome Fire Effect on the Watershed"
+author: "Madison Thompson"
+date: "5/12/2022"
+site: bookdown::bookdown_site
+documentclass: docs
+output:
+  bookdown::gitbook: default
+bibliography: citations.bib
+fig_caption: yes
+---
+
 # Introduction 
+
+```{r setup, include=FALSE}
+library(here)
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.cap = "")
+knitr::opts_chunk$set(show_col_types = FALSE)
+
+```
+
+
+# Abstract 
+
+	Wildfires occur often and have become more crucial to understand the effects it has on a watershed. In more recent due to a variety of variables such as climate change and human disturbances these fires no longer a pure natural and healthy occurrence. Wildfires damage the land in a multitude of ways. One of the things these fires effect heavily is the watersheds. When a wildfire burns through the land high severity burned areas see the worst of the effect, but even the low burned areas are still negatively affected. By looking into discharge rate (in/day) and turbidity levels (FNU) we will be able to gain better knowledge of the effects the fire has on the land and the stream health as well. Discharge levels will help us better understand how the streamflow and the possible layout of the streams will be affected. While turbidity will help us better understand the effects on the water quality of the stream for humans and the animals dependent on the effected water sources. To understand the effects that a wildfire can have on a watershed this study investigated the East Troublesome Fire that occurred near Grandby, CO in October of 2020. This study will highlight the affects and the importance in understanding the factors that wildfires will have on watersheds. 
+
+
+# Introduction 
+
 When wildfires occur, it creates major damages through the entire land and ecosystem of the area. A large part of the ecosystem that is affected is the watershed of the area. When a wildfire burns through the area it creates long-term affects that can alter the streamflow and water quality of that watershed. These wildfires were once a common natural occurrence in most forest ecosystems that did not have a devastating effect on the land. But in more recent years things such as climate change, fuel load accumulation, extensive droughts, and an increase in human presence in forests has caused a devastating effect on the land when these wildfires burn. The concern that comes from these factors has put a heavier strain on the understanding on how the landscape changes and reacts to the wildfire. There is a need to understand the interaction between wildfire, and associated responses in vegetation cover, and hydrologic and geomorphic behavior. [@owens_muted_2013]
 
 When a wildfire burns it way through the land it often causes dramatic changes in forest vegetation structure and soil conditions, it also alters the watershed processes that control streamflow, soil erosion, nutrient export, and downstream water chemistry [@hohner_wildfires_2019]. The effect of erosion, infiltration, runoff, and slope failure play a major role in how the land is re-molded. These changes can include the streamflow, landscape, and the soil of the land. When a forest is undisturbed its soils have relatively high infiltration rates that helps to control runoff effects. Wildfires can reduce infiltration by exposing mineral soil to rain drop impact and splash that can seal soil pores at the surface [@ice_effects_nodate]. The effect that comes from the wildfire then causes dramatic changes in both annual and peak streamflows. The wildfires remove features from the land that shows decreased infiltration rates and increased runoff rates. As seen with high-severity fires heat the mineral soil and consume all vegetative ground cover, leaving only ash at the soil surface [@kunze_streamflow_2006]. With the features burned away from the land it decreases infiltration and increases runoff creating a negative effect to streamflow and water quality. Reduced infiltration then promotes overland flow, surface erosion, runoff, and sediment that contributes to debris and extreme channel impacts that affect streamflow. These effects from a wildfire creates a domino effect that starts with the forest ecosystem and begins to alter the land and watershed from the most obvious to the least observed occurrences. 
